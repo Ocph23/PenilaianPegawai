@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App3.Views.ProsesPenilaian">
+  <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"></ColumnDefinition>
+                <ColumnDefinition Width="70*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0">
+                <StackLayout>
+                    <Image HeightRequest="100"></Image>
+                </StackLayout>
+                <StackLayout  Grid.Column="0">
+                    <Label Text="NIP" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                    <Label Text="Nama" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                    <Label Text="Unit Kerja" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                </StackLayout>
+                <StackLayout  Grid.Column="1">
+                    <Label Text="NIP" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                    <Label Text="Nama" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                    <Label Text="Unit Kerja" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Margin="0,30,0,0">
+                <ListView x:Name="ItemsListView"
+				ItemsSource="{Binding Items}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                           IsPullToRefreshEnabled="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement">
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="Kriteria"></Label>
+                            <Label Grid.Column="1" Text="Nilai"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                                    <Entry FontSize="13"/>
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>
