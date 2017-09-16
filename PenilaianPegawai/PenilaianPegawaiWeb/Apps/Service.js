@@ -93,15 +93,13 @@
 
     })
 
-    .factory("PejabatPenilaiService", function ($http, $q, BaseUrl,Helpers) {
+    .factory("PejabatPenilaiService", function ($http, $q, BaseUrl, Helpers) {
         var service = {};
-       var isInstant = false;
-       var collection = [];
-        service.source = function ()
-        {
+        var isInstant = false;
+        var collection = [];
+        service.source = function () {
             deferred = $q.defer();
-            if (!isInstant)
-            {
+            if (!isInstant) {
                 $http({
                     method: 'GET',
                     url: BaseUrl.URL + "/api/pejabatpenilai/get",
@@ -110,20 +108,18 @@
                     collection = response.data;
                     deferred.resolve(collection);
                     isInstant = true;
-                    }, function (error) {
-                        alert(Helpers.getMessage(error.status,error.data.Message));
-                   // deferred.reject(error);
+                }, function (error) {
+                    alert(Helpers.getMessage(error.status, error.data.Message));
+                    // deferred.reject(error);
                 });
-               
-            } else
-            {
+
+            } else {
                 deferred.resolve(collection);
             }
 
             return deferred.promise;
         }
-        service.Insert = function (model)
-        {
+        service.Insert = function (model) {
             deferred = $q.defer();
             $http({
                 method: 'post',
@@ -142,17 +138,112 @@
             return deferred.promise;
         }
 
-        service.put = function (model,selected) {
+        service.put = function (model, selected) {
             deferred = $q.defer();
             $http({
                 method: 'put',
-                url: BaseUrl.URL + "/api/pejabatpenilai/put?id="+model.Id,
+                url: BaseUrl.URL + "/api/pejabatpenilai/put?id=" + model.Id,
                 data: model
             }).then(function (response) {
                 selected.Nama = model.Nama;
                 selected.Alamat = model.Alamat;
                 selected.Level = model.Level;
                 selected.Jabatan = model.Jabatan;
+                alert(Helpers.getMessage(2, ""));
+                deferred.resolve(response.data);
+            }, function (error) {
+
+                alert(Helpers.getMessage(error.status, error.data.Message));
+                // deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+
+
+
+        service.delete = function (model) {
+            deferred = $q.defer();
+            $http({
+                method: 'delete',
+                url: BaseUrl.URL + "/api/pejabat/delete?id=" + model.Id,
+                data: model
+            }).then(function (response) {
+                var index = collection.indexOf(model);
+                collection.splice(index, 1);
+                alert(Helpers.getMessage(3, ""));
+                deferred.resolve(response.data);
+            }, function (error) {
+
+                alert(Helpers.getMessage(error.status, error.data.Message));
+                // deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+        return service;
+    })
+
+    .factory("KriteriaService", function ($http, $q, BaseUrl,Helpers) {
+        var service = {};
+       var isInstant = false;
+       var collection = [];
+        service.source = function ()
+        {
+            deferred = $q.defer();
+            if (!isInstant)
+            {
+                $http({
+                    method: 'GET',
+                    url: BaseUrl.URL + "/api/kriteria/Get",
+                }).then(function (response) {
+                    // With the data succesfully returned, we can resolve promise and we can access it in controller
+                    collection = response.data;
+                    deferred.resolve(collection);
+                    isInstant = true;
+                    }, function (error) {
+                        alert(Helpers.getMessage(error.status,error.data.Message));
+                   // deferred.reject(error);
+                });
+               
+            } else
+            {
+                deferred.resolve(collection);
+            }
+
+            return deferred.promise;
+        }
+        service.post = function (model)
+        {
+            deferred = $q.defer();
+            $http({
+                method: 'post',
+                url: BaseUrl.URL + "/api/kriteria/post",
+                data: model
+            }).then(function (response) {
+                collection.push(response.data);
+                alert(Helpers.getMessage(1, ""));
+                deferred.resolve(response.data);
+            }, function (error) {
+
+                alert(Helpers.getMessage(error.status, error.data.Message));
+                // deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+        service.put = function (model,selected) {
+            deferred = $q.defer();
+            $http({
+                method: 'put',
+                url: BaseUrl.URL + "/api/kriteria/put?id="+model.Id,
+                data: model
+            }).then(function (response) {
+                selected.Nama = model.Nama;
+                selected.Keterangan = model.Keterangan;
                 alert(Helpers.getMessage(2, ""));
                 deferred.resolve(response.data);
             }, function (error) {
@@ -172,13 +263,13 @@
             deferred = $q.defer();
             $http({
                 method: 'delete',
-                url: BaseUrl.URL + "/api/pejabat/delete?id=" + model.Id,
+                url: BaseUrl.URL + "/api/kriteria/delete?id=" + model.IdKriteria,
                 data: model
             }).then(function (response) {
                 var index = collection.indexOf(model);
                 collection.splice(index, 1);     
                 alert(Helpers.getMessage(3, ""));
-                deferred.resolve(response.data);
+                deferred.resolve(index);
             }, function (error) {
 
                 alert(Helpers.getMessage(error.status, error.data.Message));
@@ -190,6 +281,98 @@
 
         return service;
     })
-    
+
+
+    .factory("PegawaiService", function ($http, $q, BaseUrl, Helpers) {
+        var service = {};
+        var isInstant = false;
+        var collection = [];
+        service.source = function () {
+            deferred = $q.defer();
+            if (!isInstant) {
+                $http({
+                    method: 'GET',
+                    url: BaseUrl.URL + "/api/pegawai/Get",
+                }).then(function (response) {
+                    // With the data succesfully returned, we can resolve promise and we can access it in controller
+                    collection = response.data;
+                    deferred.resolve(collection);
+                    isInstant = true;
+                }, function (error) {
+                    alert(Helpers.getMessage(error.status, error.data.Message));
+                    // deferred.reject(error);
+                });
+
+            } else {
+                deferred.resolve(collection);
+            }
+
+            return deferred.promise;
+        }
+        service.post = function (model) {
+            deferred = $q.defer();
+            $http({
+                method: 'post',
+                url: BaseUrl.URL + "/api/pegawai/post",
+                data: model
+            }).then(function (response) {
+                collection.push(response.data);
+                alert(Helpers.getMessage(1, ""));
+                deferred.resolve(response.data);
+            }, function (error) {
+
+                alert(Helpers.getMessage(error.status, error.data.Message));
+                // deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+        service.put = function (model, selected) {
+            deferred = $q.defer();
+            $http({
+                method: 'put',
+                url: BaseUrl.URL + "/api/pegawai/put?id=" + model.Id,
+                data: model
+            }).then(function (response) {
+                selected.Nama = model.Nama;
+                selected.Keterangan = model.Keterangan;
+                alert(Helpers.getMessage(2, ""));
+                deferred.resolve(response.data);
+            }, function (error) {
+
+                alert(Helpers.getMessage(error.status, error.data.Message));
+                // deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+
+
+
+        service.delete = function (model) {
+            deferred = $q.defer();
+            $http({
+                method: 'delete',
+                url: BaseUrl.URL + "/api/pegawai/delete?id=" + model.IdKriteria,
+                data: model
+            }).then(function (response) {
+                var index = collection.indexOf(model);
+                collection.splice(index, 1);
+                alert(Helpers.getMessage(3, ""));
+                deferred.resolve(index);
+            }, function (error) {
+
+                alert(Helpers.getMessage(error.status, error.data.Message));
+                // deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+        return service;
+    })
+
 
     ;

@@ -206,6 +206,7 @@
     <Compile Include="Apis\KriteriaController.cs" />
     <Compile Include="Apis\PegawaiCollection.cs" />
     <Compile Include="Apis\PegawaiController.cs" />
+    <Compile Include="Apis\PejabatPenilaiController.cs" />
     <Compile Include="Apis\PenilaianController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -238,10 +239,12 @@
     <Content Include="Apps\App.js" />
     <Content Include="Apps\Controller.js" />
     <Content Include="Apps\Service.js" />
+    <Content Include="Apps\Views\detailpegawai.html" />
     <Content Include="Apps\Views\main.html" />
     <Content Include="Apps\Views\pegawai.html" />
     <Content Include="Apps\Views\pejabatpenilai.html" />
-    <Content Include="Apps\Views\penilaian.html" />
+    <Content Include="Apps\Views\kriteria.html" />
+    <Content Include="Apps\Views\tambahpegawai.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />

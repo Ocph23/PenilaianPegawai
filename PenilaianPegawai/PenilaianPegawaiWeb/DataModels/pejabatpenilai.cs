@@ -32,18 +32,20 @@ using DAL;
 
           [PrimaryKey("Id")] 
           [DbColumn("Id")] 
-          public string Id 
+          public int Id 
           { 
                get{return _id;} 
                set{ 
                       _id=value; 
                      OnPropertyChange("Id");
                      }
-          } 
+          }
 
-          private int  _nip;
+        public pegawai Pegawai { get;  set; }
+
+        private int  _nip;
            private string  _userid;
-           private string  _id;
+           private int  _id;
       }
 }
 

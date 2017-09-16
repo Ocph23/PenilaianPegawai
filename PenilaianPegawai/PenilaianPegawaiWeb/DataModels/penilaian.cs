@@ -42,7 +42,7 @@ using DAL;
           } 
 
           [DbColumn("PejabatPenilaiId")] 
-          public string PejabatPenilaiId 
+          public int PejabatPenilaiId 
           { 
                get{return _pejabatpenilaiid;} 
                set{ 
@@ -58,7 +58,7 @@ using DAL;
         private int  _idpenilaian;
            private int  _tahunperiode;
            private int  _nip;
-           private string  _pejabatpenilaiid;
+           private int  _pejabatpenilaiid;
       }
 }
 

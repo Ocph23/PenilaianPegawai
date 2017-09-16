@@ -1,0 +1,270 @@
+﻿
+<section class="forms" ng-init="Init()">
+    <div class="container-fluid">
+        <form class="form-horizontal"ng-submit="Save(model)">
+            <header>
+                <h1 class="h3 display">Forms Tambah Pegawai</h1>
+            </header>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h2 class="h5 display display">Informasi Dasar</h2>
+                        </div>
+                        <div class="card-block">
+
+                            <div class="form-group row">
+                                <label class="col-sm-6">NIP</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.NIP" id="inputHorizontalSuccess" type="number" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Nama</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Nama" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Tempat Lahir</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.TempatLahir" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Tanggal Lahir</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.TanggalLahir" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Nomor Kartu Pegawai</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.NomorKartuPegawai" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Pendidikan</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Pendidikan" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Pangkat Golongan Terakhir</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.PangkatGolonganTerakhir" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Jabatan Akhir</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.JabatanAkhir" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-6">Jenis Kelamin</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.JenisKelamin" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Asal</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Asal" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h2 class="h5 display display">Tambahan</h2>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group row">
+                                <label class="col-sm-6">CPNS Terhitung Mulai</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.TamatCPNS" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Golongan Terhitung Mulai</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.TamatGolongan" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Jabatan Terhitung Mulai</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.TamatJabtan" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Tanggungan Suami/Istri</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.TanggunganSuamiIstri" id="inputHorizontalSuccess" type="number" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Tanggungan Anak</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.TanggunganAnak" id="inputHorizontalSuccess" type="number" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">SK Pejabat</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.SKPejabat" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Nomor SK</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.NomorSK" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Tanggal SK</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.TanggalSK" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Masa Kerja (Tahun)</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.MasaKerja" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Jenis Kepegawaian</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.JenisKepegawaian" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6">Status Kepegawaian</label>
+                                <div class="col-sm-6">
+                                    <input ng-model="model.Detail.StatusKepegawaian" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <footer>
+                <button type="submit" class="btn btn-primary">
+                    Save 
+                </button>
+            </footer>
+        </form>
+    </div>
+</section>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="modal-container-TambahKK" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Tambah KK
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Nama" ng-model="model.Nama" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" placeholder="Ketererangan" ng-model="model.Keterangan"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="Save(model)">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Ubah-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="modal-container-UbahKK" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Ubah KK
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Nama" ng-model="model.Nama" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" placeholder="Ketererangan" ng-model="model.Keterangan"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="Save(model)">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</section>

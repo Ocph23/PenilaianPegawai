@@ -69,7 +69,7 @@ namespace PenilaianPegawaiWeb.Apis
             {
                 using (var db = new OcphDbContext())
                 {
-                    if (db.KriteriaPenilaian.Update(O => new { O.Nama }, kriteria, o => o.IdKriteria == kriteria.IdKriteria))
+                    if (db.KriteriaPenilaian.Update(O => new { O.Nama,O.Keterangan }, kriteria, o => o.IdKriteria == kriteria.IdKriteria))
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, kriteria);
                     }

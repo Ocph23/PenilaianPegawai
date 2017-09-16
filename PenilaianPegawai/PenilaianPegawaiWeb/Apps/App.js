@@ -13,10 +13,19 @@
             templateUrl: "../Apps/Views/pegawai.html",
             controller:"PegawaiController"
         })
-     
-        .when("/penilaian", {
-            templateUrl: "../Apps/Views/penilaian.html",
-            controller: "PenilaianController"
+
+        .when("/tambahpegawai", {
+            templateUrl: "../Apps/Views/tambahpegawai.html",
+            controller: "TambahPegawaiController"
+        })
+        .when("/detailpegawai", {
+            templateUrl: "../Apps/Views/detailpegawai.html",
+            controller: "DetailPegawaiController"
+        })
+      
+        .when("/kriteria", {
+            templateUrl: "../Apps/Views/kriteria.html",
+            controller: "KriteriaController"
         })
 
         .when("/laporan", {

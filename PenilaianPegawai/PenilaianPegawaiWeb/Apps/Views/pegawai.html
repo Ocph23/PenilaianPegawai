@@ -1,10 +1,297 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Kriteria Penilaian</h1>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <a class="btn btn-primary" href="#!tambahpegawai" role="button" data-toggle="modal">
+                            Tambah Pegawai
+                        </a>
+                    </div>
+                    <div class="card-block">
+                        <!--TabelKK-->
+                        <table class="table">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
 
-</body>
-</html>
+                                    <th>
+                                        NIP
+                                    </th>
+                                    <th>
+                                        Nama
+                                    </th>
+
+                                    <th>
+                                        TTL
+                                    </th>
+                                    <th>
+                                        Karpeg
+                                    </th>
+                                    <th>
+                                        Jenis Kelamin
+                                    </th>
+                                    <th>
+                                        Pendidikan
+                                    </th>
+                                    <th>
+                                        Golongan
+                                    </th>
+                                    <th>
+                                        Jabatan
+                                    </th>
+                                    <th>
+                                        Asal
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in Pegawais | filter:Pagenation.Search | startFrom:Pagenation.currentPage*Pagenation.pageSize | limitTo:Pagenation.pageSize" ">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{item.NIP}}
+                                    </td>
+                                    <td>
+                                        {{item.Nama}}
+                                    </td>
+                                    <td>
+                                        {{item.TTL}}
+                                    </td>
+                                    <td>
+                                        {{item.NomorKartuPegawai}}
+                                    </td>
+                                    <td>
+                                        {{item.JenisKelamin}}
+                                    </td>
+                                    <td>
+                                        {{item.Pendidikan}}
+                                    </td>
+                                    <td>
+                                        {{item.PangkatGolonganTerakhir}}
+                                    </td>
+                                    <td>
+                                        {{item.JabatanAkhir}}
+                                    </td>
+                                    <td>
+                                        {{item.Asal}}
+                                    </td>
+
+
+                                    <td>
+                                        <div class="dropdown">
+                                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-cog"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a data-target="#modalDetail" class="btn btn-default" ng-click="Detail(item)" role="button" data-toggle="modal">
+                                                        <i style="color:black" class="fa fa-book fa-fw" aria-hidden="true">Info Lain</i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-default" data-target="#modal-container-UbahKK" ng-click="Edit(item)" role="button" data-toggle="modal">
+                                                        <i style="color:black" class="fa fa-pencil fa-fw" aria-hidden="true"> Ubah</i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-default" ng-click="Delete(item)" role="button" data-toggle="modal">
+                                                        <i style="color:black" class="fa fa-remove fa-fw" aria-hidden="true"> Delete</i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="card-footer d-flex align-items-center" ng-show="Pagenation.numberOfPages>1">
+                        <ul class="pagination">
+                            <li>
+                                <a href="" class="btn" ng-disabled="Pagenation.currentPage == 0" ng-click="Pagenation.currentPage=Pagenation.currentPage-1">Prev</a>
+                            </li>
+                            <li ng-repeat="i in Pagenation.numberOfPagesData()">
+                                <a href="" class="btn" ng-click="Pagenation.currentPage=i">{{i+1}}</a>
+                            </li>
+
+                            <li>
+                                <a href="" class="btn" ng-disabled="Pagenation.currentPage === (Pagenation.numberOfPages - 1)" ng-click="Pagenation.currentPage=Pagenation.currentPage+1">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="modalDetail" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Detail
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Terhitung CPNS</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.TamatCPNS|date}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Golongan Terhitung Dari</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.TamatGolongan|date}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Terhitung CPNS</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.TamatJabatan|date}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Tanggungan Suami/Istri</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.TanggunganSuamiIstri}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Tanggungan Anak</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.TanggunganAnak}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">SK Pejabat</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.SKPejabat}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Nomor SK</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.NomorSK}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Tanggal SK</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.TanggalSK}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Masa Kerja</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.MasaKerja}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Jenis Kepegawaian</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.JenisKepegawaian}}</h5>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4">Status Kepegawaian</label>
+                                                <div class="col-sm-6">
+                                                    <h5>{{detail.StatusKepegawaian}}</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Ubah-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="modal-container-UbahKK" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Ubah KK
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Nama" ng-model="model.Nama" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" placeholder="Ketererangan" ng-model="model.Keterangan"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="Save(model)">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

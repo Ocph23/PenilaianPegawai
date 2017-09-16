@@ -82,10 +82,31 @@ namespace PenilaianPegawaiWeb.Controllers
             {
                 return View(model);
             }
+            SignInStatus result = SignInStatus.Failure;
+            string role = "Administrator";
+            var isExis = await AppRoleManager.RoleExistsAsync(role);
+            if (!isExis)
+            {
+                var r = await AppRoleManager.CreateAsync(new AspNet.Identity.MySQL.IdentityRole { Name = role });
+                if (r.Succeeded)
+                {
+                    var user = new ApplicationUser { UserName = "Admin", Email = "ocph23.test@gmail.com",  };
+                    IdentityResult res = await UserManager.CreateAsync(user, "Admin@123");
+                    if(res.Succeeded)
+                    {
+                        var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
+                        result = await SignInManager.PasswordSignInAsync(user.Email, "Admin@123",true, shouldLockout: false);
+                    }
+                }
+                else
+                {
+                    throw new System.Exception(string.Format("Role {0} Gagal Dibuat, Hubungi Administrator", role));
+                }
+            }else
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {
@@ -160,6 +181,16 @@ namespace PenilaianPegawaiWeb.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            using (var db = new OcphDbContext())
+            {
+                var data = db.Pegawai.Select().ToList();
+                ViewBag.Data = data.Select(i => new SelectListItem
+                {
+                    Value = i.NIP.ToString(),
+                    Text = i.Nama
+                });
+            }
+
             return View();
         }
 
@@ -170,11 +201,13 @@ namespace PenilaianPegawaiWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            model.Password = "Penilai@123";
+            model.ConfirmPassword = "Penilai@123";
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                string role = "Administrator";
+                string role = "Penilai";
                 if (result.Succeeded)
                 {
                     var isExis = await AppRoleManager.RoleExistsAsync(role);
@@ -184,6 +217,22 @@ namespace PenilaianPegawaiWeb.Controllers
                         if (r.Succeeded)
                         {
                             var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
+                            if (!roleResult.Succeeded)
+                            {
+                                throw new System.Exception(string.Format("Gagal Menambahkan User Role"));
+                            }
+                            else
+                            {
+                                using (var db = new OcphDbContext())
+                                {
+                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP = model.NIP, UserId = user.Id });
+                                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                                    return Content("<script language='javascript' type='text/javascript'>alert('Data berhasil disimpan!');</script>");
+                                }
+                            }
                         }
                         else
                         {
@@ -196,17 +245,25 @@ namespace PenilaianPegawaiWeb.Controllers
                         if (!roleResult.Succeeded)
                         {
                             throw new System.Exception(string.Format("Gagal Menambahkan User Role"));
+                        }else
+                        {
+                            using (var db = new OcphDbContext())
+                            {
+                              var re=  db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP=model.NIP, UserId=user.Id ,Id=0});
+                                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                                return Content("<script language='javascript' type='text/javascript'>alert('Data berhasil disimpan!');</script>");
+                            }
                         }
                     }
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                   // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                   
+                  //  return RedirectToAction("Administrator", "Home");
                 }
                 AddErrors(result);
             }

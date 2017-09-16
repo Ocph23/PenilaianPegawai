@@ -1,39 +1,28 @@
 ﻿angular.module("app.controller", [])
-    .controller("PejabatPenilaiController", function ($scope,$window) {
+    .controller("PejabatPenilaiController", function ($scope,$window,PejabatPenilaiService,PegawaiService) {
         $scope.TambahTitle = "Tambah Pejabat";
         $scope.IsNew = true;
         $scope.Pejabats = [];
-        $scope.Levels = ["Lurah", "RW", "RT"];
-        $scope.JenisJabatans = ["Ketua", "Sekretaris"];
-
-        PejabatService.source().then(function (data) {
+        PejabatPenilaiService.source().then(function (data) {
             try {
                 $scope.Pejabats = data;
+                PegawaiService.source().then(function (response) {
+                    $scope.Pegawais = response;
+                });
             } catch (e) {
                 alert(e.Message);
             }
         });
 
-        $scope.Tambah = function (model)
+        $scope.Save = function (model)
         {
             model.Id = 0;
-            model.Password = "Pejabat#1";
-            model.ConfirmPassword = "Pejabat#1";
-            model.InstansiID = 0;
-            model.Status = true;
-            model.userId = null;
-            modelInstansi = null;
 
-            PejabatService.Insert(model).then(function (response) {
+            PejabatPenilaiService.Insert(model).then(function (response) {
                
             });
         }
-        $scope.SaveEdit = function(model)
-        {
-            PejabatService.put(model, $scope.SelectedItem).then(function (response) {
-
-            });
-        }
+     
 
         $scope.DeleteItem = function (item)
         {
@@ -46,32 +35,23 @@
         }
 
 
-        $scope.Edit = function(item)
-        {
-            $scope.SelectedItem = item;
-            $scope.model = angular.copy(item);
-           
+        $scope.Detail = function (item) {
+            $scope.detail = item;
         }
     })
     
-    .controller("PegawaiController", function ($scope,$window) {
-        $scope.Strukturs = [];
-        $scope.PejabatRW = [];
-        $scope.PejabatRT = [];
+    .controller("KriteriaController", function ($scope, $window, KriteriaService, PagenationService) {
         $scope.IsBusy = false;
-
+        $scope.Kriterias = [];
+        $scope.Pagenation = PagenationService;
+        $scope.Search = '';
         $scope.Init = function()
         {
-            StrukturKelurahanService.source().then(function (response) {
-                $scope.Strukturs = response.data;
-                PejabatService.source().then(function (response) {
-                    PejabatService.GetPejabatRW($scope.PejabatRW);
-                    PejabatService.GetPejabatRT($scope.PejabatRT);
-                });
+            KriteriaService.source().then(function (response) {
+                $scope.Kriterias = $scope.Pagenation.Load(response, $scope.Search, 10);
             });
 
         }
-
       
         $scope.SetNoActive = function (item) {
             $scope.SelectedRW = item;
@@ -88,25 +68,27 @@
 
         };
 
-        $scope.Save = function (item, SelectedPejabat)
+
+
+        $scope.Selected = function(item)
+        {
+            $scope.SelectedItem = item;
+            $scope.model = angular.copy(item);
+        }
+
+
+        $scope.Save = function (model)
         {
             try {
                 $scope.IsBusy = true;
-                if (item.Id === undefined) {
-                    if (SelectedPejabat === undefined) {
-                        alert("Tentukan Ketua RW");
-                    } else {
-                        item.Id = 0;
-                        item.PejabatId = SelectedPejabat.Id;
-                        item.Pejabat = SelectedPejabat;
-                        StrukturKelurahanService.Insert(item).then(function (response) {
-
-                            alert("Success");
-                        });
-                    }
-
+                if (model.IdKriteria === undefined) {
+                    KriteriaService.post(model).then(function (response) {
+                        $scope.Kriterias.push(response);
+                    });
                 } else {
+                    KriteriaService.put(model, $scope.SelectedItem).then(function (respon) {
 
+                    });
                 }
 
             } catch (e) {
@@ -120,36 +102,110 @@
           
         }
 
-        $scope.SelectRW = function (item) {
-            $scope.SelectedRW = item;
-        };
-
-        $scope.SelectRT = function (item) {
-            $scope.SelectedRT = item;
-            $scope.model = angular.copy(item);
-        };
-
-        $scope.AddRT = function (rw, model) {
-            StrukturKelurahanService.AddRT(rw, model).then(function (response) {
-
-
-            });
-        };
-
-        $scope.SaveEditRT = function (item, selected) {
-            StrukturKelurahanService.putRT(item, selected).then(function (response) { });
-
-        };
-
-        $scope.DeleteRT = function (item, daftar) {
-            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "' RT " + item.Nama + "'?");
+        $scope.Delete = function (item) {
+            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "' Kriteria " + item.Nama + "'?");
             if (deleteUser) {
-                StrukturKelurahanService.deleteRT(item, daftar).then(function (response) { });
+                KriteriaService.delete(item).then(function (index) {
+                    $scope.Kriterias.splice(index, 1);
+                });
             }
            
         };
 
     })
+
+
+    .controller("PegawaiController", function ($scope, $window, PegawaiService, PagenationService) {
+        $scope.IsBusy = false;
+        $scope.Pegawais = [];
+        $scope.Pagenation = PagenationService;
+        $scope.Search = '';
+        PegawaiService.source().then(function (response) {
+            $scope.Pegawais = $scope.Pagenation.Load(response, $scope.Search, 10);
+        });
+
+        $scope.Selected = function (item) {
+            $scope.SelectedItem = item;
+            $scope.model = angular.copy(item);
+        }
+
+
+        $scope.Save = function (model) {
+            try {
+                $scope.IsBusy = true;
+                if (model.IdKriteria === undefined) {
+                    PegawaiService.post(model).then(function (response) {
+                        $scope.Kriterias.push(response);
+                    });
+                } else {
+                    PegawaiService.put(model, $scope.SelectedItem).then(function (respon) {
+
+                    });
+                }
+
+            } catch (e) {
+                alert(e.message);
+            } finally {
+                $scope.IsBusy = false;
+            }
+
+
+
+        }
+
+
+        $scope.Detail = function (item)
+        {
+            $scope.detail = item.Detail;
+        }
+
+        $scope.Delete = function (item) {
+            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "' Kriteria " + item.Nama + "'?");
+            if (deleteUser) {
+                PegawaiService.delete(item).then(function (index) {
+                    $scope.Kriterias.splice(index, 1);
+                });
+            }
+
+        };
+
+    })
+
+    .controller("TambahPegawaiController", function ($scope, $window, PegawaiService, PagenationService) {
+        $scope.IsBusy = false;
+        $scope.Kriterias = [];
+        $scope.Pagenation = PagenationService;
+        $scope.Search = '';
+
+        $scope.Save = function (model) {
+            try {
+                $scope.IsBusy = true;
+                model.Detail.NIP = model.NIP;
+                PegawaiService.post(model).then(function (response) {
+                });
+
+            } catch (e) {
+                alert(e.message);
+            } finally {
+                $scope.IsBusy = false;
+            }
+
+
+
+        }
+
+        $scope.Delete = function (item) {
+            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "' Kriteria " + item.Nama + "'?");
+            if (deleteUser) {
+                KriteriaService.delete(item).then(function (index) {
+                    $scope.Kriterias.splice(index, 1);
+                });
+            }
+
+        };
+
+    })
+
 
     .controller("PenilaianController", function ($scope, $rootScope, PagenationService) {
         $scope.Strukturs = [];

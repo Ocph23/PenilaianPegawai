@@ -29,11 +29,22 @@ using DAL;
                       _nama=value; 
                      OnPropertyChange("Nama");
                      }
-          } 
+          }
+        [DbColumn("Keterangan")]
+        public string Keterangan
+        {
+            get { return _keterangan; }
+            set
+            {
+                _keterangan = value;
+                OnPropertyChange("Keterangan");
+            }
+        }
 
-          private int  _idkriteria;
+        private int  _idkriteria;
            private string  _nama;
-      }
+        private string _keterangan;
+    }
 }
 
 

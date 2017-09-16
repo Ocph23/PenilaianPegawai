@@ -92,6 +92,93 @@ namespace PenilaianPegawaiWeb.Apis
         }
 
 
+        public async Task<HttpResponseMessage> Register(RegisterViewModel model)
+        {
+            model.Password = "Penilai@123";
+            model.ConfirmPassword = "Penilai@123";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    string role = "Penilai";
+                    if (result.Succeeded)
+                    {
+                        var isExis = await AppRoleManager.RoleExistsAsync(role);
+                        if (!isExis)
+                        {
+                            var r = await AppRoleManager.CreateAsync(new AspNet.Identity.MySQL.IdentityRole { Name = role });
+                            if (r.Succeeded)
+                            {
+                                var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
+                                if (!roleResult.Succeeded)
+                                {
+                                    throw new System.Exception(string.Format("Gagal Menambahkan User Role"));
+                                }
+                                else
+                                {
+                                    using (var db = new OcphDbContext())
+                                    {
+                                        var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP = model.NIP, UserId = user.Id });
+                                        string c = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                        string code = HttpUtility.UrlEncode(c);
+                                        var callbackUrl = Url.Link("DefaultApi", new { controller = "Account/ConfirmEmail", userId = user.Id, code = code });
+                                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                                        return Request.CreateResponse(HttpStatusCode.OK, "Data Berhasil ditambah");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                throw new System.Exception(string.Format("Role {0} Gagal Dibuat, Hubungi Administrator", role));
+                            }
+                        }
+                        else
+                        {
+                            var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
+                            if (!roleResult.Succeeded)
+                            {
+                                throw new System.Exception(string.Format("Gagal Menambahkan User Role"));
+                            }
+                            else
+                            {
+                                using (var db = new OcphDbContext())
+                                {
+                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP = model.NIP, UserId = user.Id, Id = 0 });
+                                    string c = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                                    string code = HttpUtility.UrlEncode(c);
+                                    var callbackUrl = Url.Link("DefaultApi", new { controller = "Account/ConfirmEmail", userId = user.Id, code = code });
+                                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                                    return Request.CreateResponse(HttpStatusCode.OK, "Data Berhasil ditambah");
+                                }
+                            }
+                        }
+                        // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+
+                        //  return RedirectToAction("Administrator", "Home");
+                    }else
+                        throw new SystemException("Data Tidak berhasil ditambah");
+                }
+                else
+                {
+                    throw new SystemException("Data Tidak Valid");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message, ex);
+            }
+
+            // If we got this far, something failed, redisplay form
+        }
+
+
         [Authorize]
         [HttpGet]
         public HttpResponseMessage GetPejabatPenilaiProfile()

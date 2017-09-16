@@ -111,8 +111,17 @@ using DAL;
                      }
           }
 
-        public detailpegawai Detail { get; internal set; }
-        public penilaian HasilPenilaian { get; internal set; }
+
+        public string TTL
+        {
+            get
+            {
+                return this.TempatLahir + ", " + this.TanggalLahir.ToShortDateString();
+            }
+        }
+
+        public detailpegawai Detail { get; set; }
+        public penilaian HasilPenilaian { get; set; }
 
         private int  _nip;
            private string  _nama;
