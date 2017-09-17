@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Views.Details.PegawaiDetailView" BackgroundColor="#091540"
+             Title="Detail Pegawai">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Margin="10">
+                <Image Source="profile_generic.png" HeightRequest="100"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="NIP" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.NIP}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Nama" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.Nama}"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="TTL" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.TTL}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Jenis Kelamin" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.JenisKelamin}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Kartu Pegawai" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.NomorKartuPegawai}"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Pendidikan" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.Pendidikan}"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Golongan" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.PangkatGolonganTerakhir}"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Jabatan" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.JabatanAkhir}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="14"  Text="Asal" WidthRequest="100" />
+                    <Label FontSize="13"  Text="{Binding Pegawai.Asal}"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="More"></Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

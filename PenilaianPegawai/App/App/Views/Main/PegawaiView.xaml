@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Pegawai"
+             x:Class="App.Views.Main.PegawaiView" BackgroundColor="#091540">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="listPegawai"
+				ItemsSource="{Binding Pegawais}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                IsPullToRefreshEnabled="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                CachingStrategy="RecycleElement" ItemSelected="listPegawai_ItemSelectedAsync">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnMore" CommandParameter="{Binding NIP}"  Text="More" />
+                            </ViewCell.ContextActions>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                                    <ColumnDefinition Width="70*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0">
+                                    <Image HorizontalOptions="Center" Source="profile_generic.png" HeightRequest="75"/>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1" Orientation="Vertical">
+                                    <Label  Text="{Binding Nama}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                                    <Label  Text="{Binding NIP}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="16"/>
+                                    <Label  Text="{Binding JabatanAkhir}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                                                FontSize="12"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

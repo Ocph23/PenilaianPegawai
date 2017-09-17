@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Views.LoginView" BackgroundColor="#091540">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" Margin="30">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            <Image Source="profile_generic.png" HeightRequest="100" Margin="50"/>
+            <Entry Text="{Binding Email}" Placeholder="User Name" BackgroundColor="White"></Entry>
+            <Entry PropertyChanged="Entry_PropertyChanged" IsPassword="True" Placeholder="Password" BackgroundColor="White"></Entry>
+            <Button Text="Login" Command="{Binding LoginCommand}"></Button>
+        </StackLayout>
+    </ContentView.Content>
+</ContentPage>
