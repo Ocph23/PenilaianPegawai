@@ -1,7 +1,16 @@
 ﻿namespace App.Models
 {
-    public class detailpenilaian :BaseDataObject
+    public class detailpenilaian :ViewModels.BaseViewModel
     {
+
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                SetProperty(ref _id, value);
+            }
+        }
         public int IdPenilaian
         {
             get { return _idpenilaian; }
@@ -26,13 +35,21 @@
             set
             {
                 SetProperty(ref _nilai, value);
+             
+                
             }
         }
 
-        public kriteriapenilaian Kriteria { get; internal set; }
+        public kriteriapenilaian Kriteria
+        {
+            get { return _kriteria; }
+            set { SetProperty(ref _kriteria, value); }
+        }
 
         private int _idpenilaian;
         private int _idkriteria;
         private double _nilai;
+        private int _id;
+        private kriteriapenilaian _kriteria;
     }
 }

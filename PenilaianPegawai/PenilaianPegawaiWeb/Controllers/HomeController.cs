@@ -20,5 +20,19 @@ namespace PenilaianPegawaiWeb.Controllers
         {
             return View();
         }
+
+        public ActionResult Android()
+        {
+            return View();
+        }
+
+        public FileResult Download()
+        {
+            string rootpath = Server.MapPath("~/Android/com.ocph23.AppPenilaian-Signed.apk");
+            byte[] fileBytes = System.IO.File.ReadAllBytes(rootpath);
+            string fileName = "AppPenilaian.apk";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+
     }
 }

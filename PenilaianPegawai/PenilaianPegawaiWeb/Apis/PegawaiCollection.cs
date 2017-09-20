@@ -25,7 +25,7 @@ namespace PenilaianPegawaiWeb.Apis
                              from b in pegawaigrpup.DefaultIfEmpty()
                              select new pegawai
                              {
-                                 Asal = a.Asal,
+                                 Asal = a.Asal, Foto=a.Foto,
                                  JabatanAkhir = a.JabatanAkhir,
                                  JenisKelamin = a.JenisKelamin,
                                  Nama = a.Nama,

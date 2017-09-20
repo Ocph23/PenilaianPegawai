@@ -14,38 +14,36 @@ namespace PenilaianPegawaiWeb
         Islam, Protestan, Khatolik, Hindu, Budha, Konghuchu
     }
 
-    public enum Kelamin
-    {
-        Pria, Wanita
-    }
 
-    public enum Hubungan
+    public enum JenisKelamin
     {
-        KepalaKeluarga,Istri,Anak,Ibu,Bapak,Famili
+        L,P
     }
-
-    public enum StatusPerkawinan
-    {
-        Kawin,Belum
-    }
-
-    public enum Kewarganegaraan
-    {
-        WNI, WNA
-    }
-
 
     public enum Pendidikan
     {
-        SD, SMP, SMA, S1, S2, S3
+        SMP, SMA, S1, S2, S3
     }
 
-    public enum LevelStruktur
+
+    public enum Asal 
     {
-        RT, RW, Lurah
+         Papua, NonPapua
     }
-    public enum JenisJabatan
+
+
+    public enum StatusKepegawaian 
     {
-        Ketua, Sekertaris
+         CPNS, PNS
+    }
+
+    public enum JenisKepegawaian 
+    {
+         PNSP, PNSD
+    }
+
+    public enum SKPejabat
+    {
+         Presiden, Gubernur
     }
 }

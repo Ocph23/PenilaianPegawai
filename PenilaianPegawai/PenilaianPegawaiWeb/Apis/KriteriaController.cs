@@ -46,14 +46,22 @@ namespace PenilaianPegawaiWeb.Apis
         {
             try
             {
-                using (var db = new OcphDbContext())
+                if (ModelState.IsValid)
                 {
-                    penilaian.IdKriteria = db.KriteriaPenilaian.InsertAndGetLastID(penilaian);
-                    if (penilaian.IdKriteria > 0)
-                        return Request.CreateResponse(HttpStatusCode.OK, penilaian);
-                    else
-                        return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Data Gagal Ditambah");
+                    using (var db = new OcphDbContext())
+                    {
+                        penilaian.IdKriteria = db.KriteriaPenilaian.InsertAndGetLastID(penilaian);
+                        if (penilaian.IdKriteria > 0)
+                            return Request.CreateResponse(HttpStatusCode.OK, penilaian);
+                        else
+                            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Data Gagal Ditambah");
+                    }
+                }else
+                {
+                    var errors = Helpers.GetModelStateError(ModelState);
+                    return Request.CreateResponse(HttpStatusCode.Forbidden, errors);
                 }
+              
             }
             catch (Exception ex)
             {

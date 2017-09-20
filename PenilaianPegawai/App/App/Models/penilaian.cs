@@ -45,8 +45,8 @@ namespace App.Models
         }
 
         public pegawai PejabatPenilai { get; internal set; }
-        public List<detailpenilaian> DaftarPenilaian { get; internal set; }
-        public pegawai Pegawai { get; internal set; }
+        public List<detailpenilaian> DaftarPenilaian { get; set; }
+        public pegawai Pegawai { get; set; }
 
         private int _idpenilaian;
         private int _tahunperiode;

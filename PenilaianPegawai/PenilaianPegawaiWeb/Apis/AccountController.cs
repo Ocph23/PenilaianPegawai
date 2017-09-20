@@ -8,9 +8,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web;
-using Newtonsoft.Json;
-using AspNet.Identity.MySQL;
 using System.Linq;
+using MySql.AspNet.Identity;
 
 namespace PenilaianPegawaiWeb.Apis
 {
@@ -108,7 +107,7 @@ namespace PenilaianPegawaiWeb.Apis
                         var isExis = await AppRoleManager.RoleExistsAsync(role);
                         if (!isExis)
                         {
-                            var r = await AppRoleManager.CreateAsync(new AspNet.Identity.MySQL.IdentityRole { Name = role });
+                            var r = await AppRoleManager.CreateAsync(new IdentityRole { Name = role });
                             if (r.Succeeded)
                             {
                                 var roleResult = await UserManager.AddToRoleAsync(user.Id, role);

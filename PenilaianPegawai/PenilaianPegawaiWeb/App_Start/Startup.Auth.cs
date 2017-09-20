@@ -17,11 +17,12 @@ namespace PenilaianPegawaiWeb
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
 
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
-        public static string PublicClientId { get; private set; }
+        public static string PublicClientId { get; set; }
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);

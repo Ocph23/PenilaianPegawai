@@ -10,7 +10,19 @@ using DAL;
      [TableName("detailpenilaian")] 
      public class detailpenilaian:BaseNotifyProperty  
    {
-          [PrimaryKey("IdPenilaian")] 
+
+        [PrimaryKey("Id")]
+        [DbColumn("Id")]
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                _id= value;
+                OnPropertyChange("Id");
+            }
+        }
+        [PrimaryKey("IdPenilaian")] 
           [DbColumn("IdPenilaian")] 
           public int IdPenilaian 
           { 
@@ -47,7 +59,8 @@ using DAL;
         private int  _idpenilaian;
            private int  _idkriteria;
            private double  _nilai;
-      }
+        private int _id;
+    }
 }
 
 

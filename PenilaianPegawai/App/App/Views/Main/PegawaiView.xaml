@@ -1,7 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Pegawai"
-             x:Class="App.Views.Main.PegawaiView" BackgroundColor="#091540">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Pegawai" BackgroundColor="#FF2B34EE"
+              xmlns:converters="clr-namespace:App.Helpers;assembly=App"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="App.Views.Main.PegawaiView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="listPegawai"
@@ -24,14 +31,25 @@
                                     <ColumnDefinition Width="70*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0">
-                                    <Image HorizontalOptions="Center" Source="profile_generic.png" HeightRequest="75"/>
+                                    <controls:CircleImage Source="{Binding Foto,Converter={StaticResource ImageConverter}}" Aspect="AspectFill">
+                                        <controls:CircleImage.WidthRequest>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, iOS">60</On>
+                                            </OnPlatform>
+                                        </controls:CircleImage.WidthRequest>
+                                        <controls:CircleImage.HeightRequest>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, iOS">60</On>
+                                            </OnPlatform>
+                                        </controls:CircleImage.HeightRequest>
+                                    </controls:CircleImage>
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Vertical">
-                                    <Label  Text="{Binding Nama}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                    <Label TextColor="#abd2fa"  Text="{Binding Nama}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
                                                                 FontSize="16"/>
-                                    <Label  Text="{Binding NIP}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                    <Label  TextColor="#abd2fa"  Text="{Binding NIP}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
                                                                 FontSize="16"/>
-                                    <Label  Text="{Binding JabatanAkhir}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                    <Label TextColor="#abd2fa"  Text="{Binding JabatanAkhir}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
                                                                 FontSize="12"/>
                                 </StackLayout>
                             </Grid>

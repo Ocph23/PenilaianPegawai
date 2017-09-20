@@ -20,7 +20,9 @@
                                     <th>
                                         #
                                     </th>
-
+                                    <th>
+                                        Photo
+                                    </th>
                                     <th>
                                         NIP
                                     </th>
@@ -59,6 +61,9 @@
                                 <tr ng-repeat="item in Pegawais | filter:Pagenation.Search | startFrom:Pagenation.currentPage*Pagenation.pageSize | limitTo:Pagenation.pageSize" ">
                                     <td>
                                         {{$index+1}}
+                                    </td>
+                                    <td>
+                                        <img ng-click="Selected(item)" data-target="#modalFoto" data-toggle="modal" style="height:50px; width:25%" class="thumbnail" data-ng-src="data:image/png;base64,{{item.Foto}}" onerror="this.src='../../img/User_Circle.png'" alt="Red dot" />
                                     </td>
                                     <td>
                                         {{item.NIP}}
@@ -101,7 +106,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="btn btn-default" data-target="#modal-container-UbahKK" ng-click="Edit(item)" role="button" data-toggle="modal">
+                                                    <a class="btn btn-default" href="#!tambahpegawai" ng-click="Selected(item)" role="button" data-toggle="modal">
                                                         <i style="color:black" class="fa fa-pencil fa-fw" aria-hidden="true"> Ubah</i>
                                                     </a>
                                                 </li>
@@ -137,7 +142,47 @@
 
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="modalFoto" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
 
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                   Ganti Foto
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12 well" style="height:200px" file-canvas>
+                                            <img style="height:150px;width:100%" />
+                                            <input style="visibility:hidden" type="file" file-model="myFile" />
+                                        </div>
+                                        <button class="form-control" ng-click="UploadFoto(myFile,model)">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">

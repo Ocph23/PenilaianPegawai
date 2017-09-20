@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using AspNet.Identity.MySQL;
 using Microsoft.Owin;
 using Microsoft.AspNet.Identity.Owin;
+using MySql.AspNet.Identity;
 
 namespace PenilaianPegawaiWeb.Models
 {
@@ -18,23 +18,6 @@ namespace PenilaianPegawaiWeb.Models
         }
     }
 
-    public class ApplicationDbContext : MySQLDatabase
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection")
-        {
-        }
-
-        public ApplicationDbContext(string connectionStringName) : base(connectionStringName)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext("DefaultConnection");
-        }
-    }
-
 
 
     public class ApplicationRoleManager : RoleManager<IdentityRole>
@@ -46,7 +29,7 @@ namespace PenilaianPegawaiWeb.Models
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+            var appRoleManager = new ApplicationRoleManager(new MySqlRoleStore<IdentityRole>("DefaultConnection"));
 
             return appRoleManager;
         }

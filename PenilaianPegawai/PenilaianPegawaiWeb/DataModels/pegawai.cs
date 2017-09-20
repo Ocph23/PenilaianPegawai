@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
- 
- namespace PenilaianPegawaiWeb.DataModels 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.ComponentModel.DataAnnotations;
+
+namespace PenilaianPegawaiWeb.DataModels 
 { 
      [TableName("pegawai")] 
      public class pegawai:BaseNotifyProperty  
    {
           [PrimaryKey("NIP")] 
           [DbColumn("NIP")] 
+          [Required(ErrorMessage ="{0} Tidak Boleh Kosong")]
           public int NIP 
           { 
                get{return _nip;} 
@@ -61,8 +65,9 @@ using DAL;
                      }
           } 
 
-          [DbColumn("Pendidikan")] 
-          public string Pendidikan 
+          [DbColumn("Pendidikan")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Pendidikan Pendidikan 
           { 
                get{return _pendidikan;} 
                set{ 
@@ -92,7 +97,8 @@ using DAL;
           } 
 
           [DbColumn("Asal")] 
-          public string Asal 
+          [JsonConverter(typeof(StringEnumConverter))]
+          public Asal Asal 
           { 
                get{return _asal;} 
                set{ 
@@ -101,8 +107,9 @@ using DAL;
                      }
           } 
 
-          [DbColumn("JenisKelamin")] 
-          public string JenisKelamin 
+          [DbColumn("JenisKelamin")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public JenisKelamin JenisKelamin 
           { 
                get{return _jeniskelamin;} 
                set{ 
@@ -110,6 +117,17 @@ using DAL;
                      OnPropertyChange("JenisKelamin");
                      }
           }
+
+        [DbColumn("Foto")]
+        public byte[] Foto
+        {
+            get { return _foto; }
+            set
+            {
+                _foto = value;
+                OnPropertyChange("Foto");
+            }
+        }
 
 
         public string TTL
@@ -128,12 +146,13 @@ using DAL;
            private string  _tempatlahir;
            private DateTime  _tanggallahir;
            private string  _nomorkartupegawai;
-           private string  _pendidikan;
+           private Pendidikan  _pendidikan;
            private string  _pangkatgolonganterakhir;
            private string  _jabatanakhir;
-           private string  _asal;
-           private string  _jeniskelamin;
-      }
+           private Asal  _asal;
+           private JenisKelamin _jeniskelamin;
+        private byte[] _foto;
+    }
 }
 
 

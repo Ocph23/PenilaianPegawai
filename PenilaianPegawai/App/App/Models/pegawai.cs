@@ -98,12 +98,20 @@ namespace App.Models
             }
         }
 
+        public byte[] Foto
+        {
+            get { return _foto; }
+            set
+            {
+                SetProperty(ref _foto, value);
+            }
+        }
 
         public string TTL
         {
             get
             {
-                return this.TempatLahir + ", " + this.TanggalLahir.ToString();
+                return this.TempatLahir + ", " + string.Format("{0}/{1}/{2}", this.TanggalLahir.Day, this.TanggalLahir.Month, this.TanggalLahir.Year);
             }
         }
 
@@ -120,5 +128,6 @@ namespace App.Models
         private string _jabatanakhir;
         private string _asal;
         private string _jeniskelamin;
+        private byte[] _foto;
     }
 }

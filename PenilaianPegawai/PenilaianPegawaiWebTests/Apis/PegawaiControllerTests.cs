@@ -42,12 +42,12 @@ namespace PenilaianPegawaiWeb.Apis.Tests
             pegawai.Configuration = new HttpConfiguration();
             pegawai p = new pegawai
             {
-                Asal = "Papua",
+                Asal =  Asal.Papua,
                 JabatanAkhir = "Direktur",
-                JenisKelamin = "L",
+                JenisKelamin =  JenisKelamin.L,
                 Nama = "Yaquin",
                 NIP = 123456789,
-                NomorKartuPegawai = "1234565", PangkatGolonganTerakhir = "IVA", Pendidikan = "S1"
+                NomorKartuPegawai = "1234565", PangkatGolonganTerakhir = "IVA", Pendidikan =  Pendidikan.S1
                 , TanggalLahir = new DateTime(), TempatLahir = "Jayapura"
             };
 
@@ -63,14 +63,14 @@ namespace PenilaianPegawaiWeb.Apis.Tests
             pegawai.Configuration = new HttpConfiguration();
             pegawai p = new pegawai
             {
-                Asal = "Papua",
+                Asal = Asal.Papua,
                 JabatanAkhir = "Direktur",
-                JenisKelamin = "L",
+                JenisKelamin =  JenisKelamin.P,
                 Nama = "Yaquin",
                 NIP = 123456789,
                 NomorKartuPegawai = "1234565",
                 PangkatGolonganTerakhir = "IIA",
-                Pendidikan = "S1"
+                Pendidikan =  Pendidikan.S1
                 ,
                 TanggalLahir = new DateTime(),
                 TempatLahir = "Jayapura"
@@ -88,11 +88,11 @@ namespace PenilaianPegawaiWeb.Apis.Tests
             pegawai.Configuration = new HttpConfiguration();
             detailpegawai p = new detailpegawai
             {
-                JenisKepegawaian = "PNSD",
+                JenisKepegawaian = JenisKepegawaian.PNSD,
                 MasaKerja = 25,
                 NIP = 123456789,
                 NomorSK = "1234567",
-                SKPejabat = "Presiden", StatusKepegawaian = "PNS", TamatCPNS = new DateTime(), TamatGolongan = new DateTime(),
+                SKPejabat = SKPejabat.Presiden, StatusKepegawaian = StatusKepegawaian.CPNS, TamatCPNS = new DateTime(), TamatGolongan = new DateTime(),
                 TamatJabatan = new DateTime(), TanggalSK = new DateTime(), TanggunganAnak=2, TanggunganSuamiIstri=1 
             };
 

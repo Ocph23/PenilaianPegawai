@@ -46,7 +46,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-6">Pendidikan</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.Pendidikan" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                    <select type="text" required class="form-control form-control-success" ng-model="model.Pendidikan" ng-options="y for (x, y) in Helpers.Pendidikan"></select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -65,13 +65,13 @@
                             <div class="form-group row">
                                 <label class="col-sm-6">Jenis Kelamin</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.JenisKelamin" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                    <select type="text" required class="form-control form-control-success" ng-model="model.JenisKelamin" ng-options="y for (x, y) in Helpers.JenisKelamin()"></select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6">Asal</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.Asal" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                    <select type="text" required class="form-control form-control-success" ng-model="model.Asal" ng-options="y for (x, y) in Helpers.Asals()"></select>
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-6">Jabatan Terhitung Mulai</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.Detail.TamatJabtan" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
+                                    <input ng-model="model.Detail.TamatJabatan" id="inputHorizontalSuccess" type="date" required class="form-control form-control-success">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -117,7 +117,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-6">SK Pejabat</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.Detail.SKPejabat" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
+                                    <select type="text" required class="form-control form-control-success" ng-model="model.Detail.SKPejabat" ng-options="y for (x, y) in Helpers.SKPejabat()"></select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -141,14 +141,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-6">Jenis Kepegawaian</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.Detail.JenisKepegawaian" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
-                                </div>
+                                    <select type="text" required class="form-control form-control-success" ng-model="model.Detail.JenisKepegawaian" ng-options="y for (x, y) in Helpers.JenisKepegawaian()"></select> </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6">Status Kepegawaian</label>
                                 <div class="col-sm-6">
-                                    <input ng-model="model.Detail.StatusKepegawaian" id="inputHorizontalSuccess" type="text" required class="form-control form-control-success">
-                                </div>
+                                    <select type="text" required class="form-control form-control-success" ng-model="model.Detail.StatusKepegawaian" ng-options="y for (x, y) in Helpers.StatusKepegawaian()"></select> </div>
                             </div>
 
                         </div>

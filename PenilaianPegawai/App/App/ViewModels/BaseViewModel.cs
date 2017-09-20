@@ -13,7 +13,8 @@ namespace App.ViewModels
         /// </summary>
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IDataStore<pegawai> PegawaiDataStore => DependencyService.Get<IDataStore<pegawai>>();
-
+        public IDataStore<penilaian> PenilaianDataStore => DependencyService.Get <IDataStore<penilaian>>();
+        public IDataStore<detailpenilaian> DetailPenilaianDataStore => DependencyService.Get<IDataStore<detailpenilaian>>();
         bool isBusy = false;
         public bool IsBusy
         {

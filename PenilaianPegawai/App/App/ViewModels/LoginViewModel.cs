@@ -48,18 +48,11 @@ namespace App.ViewModels
             {
                 using (var res = new Services.RestService())
                 {
-                    this.Email = "ocph23.test@gmail.com";
-                    this.Password = "Sony@77";
+                    this.Email = "Ajn26@gmail.com";
+                    this.Password = "Penilai@123";
                     token = await res.GenerateTokenAsync(this.Email, Password);
                     if (token != null)
                     {
-                        MessagingCenter.Send(new MessagingCenterAlert
-                        {
-                            Title = "Login",
-                            Message = "Login Success",
-                            Cancel = "OK"
-                        }, "message");
-
                         var main = new BaseMain(token);
 
                         ((App)App.Current).ChangeScreen(main);

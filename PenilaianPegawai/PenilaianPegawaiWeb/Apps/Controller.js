@@ -115,20 +115,57 @@
     })
 
 
-    .controller("PegawaiController", function ($scope, $window, PegawaiService, PagenationService) {
+    .controller("PegawaiController", function ($scope, $window, PegawaiService, PagenationService,Helpers,$rootScope) {
         $scope.IsBusy = false;
         $scope.Pegawais = [];
         $scope.Pagenation = PagenationService;
         $scope.Search = '';
+     
+
         PegawaiService.source().then(function (response) {
             $scope.Pegawais = $scope.Pagenation.Load(response, $scope.Search, 10);
         });
 
         $scope.Selected = function (item) {
             $scope.SelectedItem = item;
+            $rootScope.SelectedPegawai = item;
             $scope.model = angular.copy(item);
         }
+        $scope.UploadFoto = function (file,model)
+        {
+            if (file !== undefined) {
+                var url = "/api/Photo/Post";
+                var form = new FormData();
+                form.append("file", file);
+                form.append("NIP", model.NIP);
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": url,
+                    "method": "Post",
+                    "headers": {
+                        "cache-control": "no-cache",
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
 
+                $.ajax(settings).done(function (response, data) {
+                    alert("Foto Berhasil Diubah");
+                    var d = JSON.parse(response);
+                    $scope.SelectedItem.Foto = d.Foto;
+                }).error(function (response) {
+                    alert(response.responseText);
+                    })
+
+                    ;
+            } else {
+                alert("Anda Belum Memilih File Foto");
+            }
+        }
+       
 
         $scope.Save = function (model) {
             try {
@@ -171,19 +208,43 @@
 
     })
 
-    .controller("TambahPegawaiController", function ($scope, $window, PegawaiService, PagenationService) {
+    .controller("TambahPegawaiController", function ($scope, $window, PegawaiService, PagenationService,Helpers,$rootScope) {
         $scope.IsBusy = false;
         $scope.Kriterias = [];
         $scope.Pagenation = PagenationService;
         $scope.Search = '';
+        $scope.Helpers = Helpers;
+        $scope.Init = function ()
+        {
+            if ($rootScope.SelectedPegawai != undefined)
+            {
+                $scope.model = angular.copy($rootScope.SelectedPegawai);
+                $scope.model.TanggalLahir = new Date($scope.model.TanggalLahir);
+                if ($scope.model.Detail != null)
+                {
+                    $scope.model.Detail.TamatCPNS = new Date($scope.model.Detail.TamatCPNS);
+                    $scope.model.Detail.TamatGolongan = new Date($scope.model.Detail.TamatGolongan);
+                    $scope.model.Detail.TamatJabatan = new Date($scope.model.Detail.TamatJabatan);
+                    $scope.model.Detail.TanggalSK = new Date($scope.model.Detail.TanggalSK);
+                }
+            }
+        }
 
         $scope.Save = function (model) {
             try {
-                $scope.IsBusy = true;
-                model.Detail.NIP = model.NIP;
-                PegawaiService.post(model).then(function (response) {
-                });
-
+                if ($rootScope.SelectedPegawai != undefined)
+                {
+                    $scope.IsBusy = true;
+                    model.Detail.NIP = model.NIP;
+                    PegawaiService.put(model, $rootScope.SelectedPegawai).then(function (response) {
+                    });
+                } else
+                {
+                    $scope.IsBusy = true;
+                    model.Detail.NIP = model.NIP;
+                    PegawaiService.post(model).then(function (response) {
+                    });
+                }
             } catch (e) {
                 alert(e.message);
             } finally {

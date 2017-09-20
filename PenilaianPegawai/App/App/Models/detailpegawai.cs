@@ -117,7 +117,7 @@ namespace App.Models
             }
         }
 
-
+      
 
         private int _nip;
         private DateTime _tamatcpns;
@@ -131,6 +131,6 @@ namespace App.Models
         private int _masakerja;
         private string _jeniskepegawaian;
         private string _statuskepegawaian;
-        private string _detailpegawaicol;
+      
     }
 }

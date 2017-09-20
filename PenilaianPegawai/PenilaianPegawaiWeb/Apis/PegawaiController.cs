@@ -13,14 +13,16 @@ namespace PenilaianPegawaiWeb.Apis
         // GET: api/Pegawai
         public IEnumerable<pegawai> Get()
         {
-            PegawaiCollection coll = new PegawaiCollection(2017);
+            var periode = Helpers.GetPeriode(DateTime.Now);
+            PegawaiCollection coll = new PegawaiCollection(periode.Value);
             return coll.Pegawais();
         }
 
         // GET: api/Pegawai/5
         public HttpResponseMessage Get(int id)
         {
-            PegawaiCollection coll = new PegawaiCollection(2017);
+            var periode = Helpers.GetPeriode(DateTime.Now);
+            PegawaiCollection coll = new PegawaiCollection(periode.Value);
             var value = coll.Pegawai(id);
             if (value != null)
                 return Request.CreateResponse(HttpStatusCode.OK, value);
@@ -31,31 +33,47 @@ namespace PenilaianPegawaiWeb.Apis
         // POST: api/Pegawai
         public HttpResponseMessage Post(pegawai p)
         {
-            PegawaiCollection coll = new PegawaiCollection(2017);
-            try
+            if(ModelState.IsValid)
             {
-                if (p != null && coll.Insert(p) != null)
+                var periode = Helpers.GetPeriode(DateTime.Now);
+                PegawaiCollection coll = new PegawaiCollection(periode.Value);
+                try
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, p);
+                    if (p != null && coll.Insert(p) != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, p);
+                    }
+                    else
+                        throw new SystemException("Data  Gagal Ditambah");
                 }
-                else
-                    throw new SystemException("Data  Gagal Ditambah");
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex)
+                {
 
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
+                }
             }
+            else
+            {
+                var errors = Helpers.GetModelStateError(ModelState);
+                return Request.CreateResponse(HttpStatusCode.Forbidden, errors);
+            }
+           
         }
 
 
         public HttpResponseMessage PutPegawai(pegawai p)
         {
-            PegawaiCollection coll = new PegawaiCollection(2017);
+            var periode = Helpers.GetPeriode(DateTime.Now);
+            PegawaiCollection coll = new PegawaiCollection(periode.Value);
             try
             {
-                if (p != null && coll.Update(p) != null)
+                if(p!=null && p.Detail!=null)
                 {
+                    coll.Update(p.Detail);
+                }
+                if (p != null && coll.Update(p))
+                {
+                    
                     return Request.CreateResponse(HttpStatusCode.OK, p);
                 }
                 else
@@ -70,7 +88,8 @@ namespace PenilaianPegawaiWeb.Apis
 
         public HttpResponseMessage PutDetailPegawai(detailpegawai p)
         {
-            PegawaiCollection coll = new PegawaiCollection(2017);
+            var periode = Helpers.GetPeriode(DateTime.Now);
+            PegawaiCollection coll = new PegawaiCollection(periode.Value);
             try
             {
                 if (p != null && coll.Update(p))

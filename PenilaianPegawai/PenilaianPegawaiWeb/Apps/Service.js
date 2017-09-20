@@ -48,8 +48,9 @@
         var messages = [];
         Load();
 
-        service.getMessage = function (code,message)
+        service.getMessage = function (code,data)
         {
+           var message = data.Message;
            angular.forEach(messages, function (value, key) {
                if (value.code == code) {
                    message = value.message;
@@ -57,6 +58,16 @@
             });
 
            return message;
+        }
+
+
+        service.getMessageProperty = function (data) {
+            var message = "Data Anda Tidak Lengkap";
+            angular.forEach(data, function (value, key) {
+                message += "\r" + value;
+            });
+
+            return message;
         }
 
       
@@ -74,21 +85,31 @@
         {
             return ['Islam', 'Protestan', 'Khatolik', 'Hindu', 'Budha', 'Konghuchu'];
         }
+
         service.JenisKelamin= function () {
             return ['L', 'P'];
         }
 
-        service.Pendidikan = function () {
-            return ['SD', 'SMP', 'SMA', 'S1', 'S2', 'S3'];
+        service.Pendidikan = ['SMP', 'SMA', 'S1', 'S2', 'S3'];
+
+
+        service.Asals = function () {
+            return ['Papua', 'NonPapua'];
         }
 
 
-        service.StatusPerkawinan= function () {
-            return ['Kawin', 'Belum'];
+        service.StatusKepegawaian = function () {
+            return ['CPNS', 'PNS'];
         }
-        service.Kewarganegaraan = function () {
-            return ['WNI', 'WNA'];
+
+        service.JenisKepegawaian = function () {
+            return ['PNSP', 'PNSD'];
         }
+
+        service.SKPejabat= function () {
+            return ['Presiden', 'Gubernur'];
+        }
+
         return service;
 
     })
@@ -109,7 +130,7 @@
                     deferred.resolve(collection);
                     isInstant = true;
                 }, function (error) {
-                    alert(Helpers.getMessage(error.status, error.data.Message));
+                    alert(Helpers.getMessage(error.status, error.data));
                     // deferred.reject(error);
                 });
 
@@ -131,7 +152,7 @@
                 deferred.resolve(response.data);
             }, function (error) {
 
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -153,7 +174,7 @@
                 deferred.resolve(response.data);
             }, function (error) {
 
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -176,7 +197,7 @@
                 deferred.resolve(response.data);
             }, function (error) {
 
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -204,7 +225,8 @@
                     deferred.resolve(collection);
                     isInstant = true;
                     }, function (error) {
-                        alert(Helpers.getMessage(error.status,error.data.Message));
+                       
+                            alert(Helpers.getMessage(error.status,error.data));
                    // deferred.reject(error);
                 });
                
@@ -227,8 +249,10 @@
                 alert(Helpers.getMessage(1, ""));
                 deferred.resolve(response.data);
             }, function (error) {
-
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                if (error.status == 403) {
+                    alert(Helpers.getMessageProperty(error.data));
+                } else
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -248,7 +272,7 @@
                 deferred.resolve(response.data);
             }, function (error) {
 
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -272,7 +296,7 @@
                 deferred.resolve(index);
             }, function (error) {
 
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -299,7 +323,7 @@
                     deferred.resolve(collection);
                     isInstant = true;
                 }, function (error) {
-                    alert(Helpers.getMessage(error.status, error.data.Message));
+                    alert(Helpers.getMessage(error.status, error.data));
                     // deferred.reject(error);
                 });
 
@@ -321,7 +345,7 @@
                 deferred.resolve(response.data);
             }, function (error) {
 
-                alert(Helpers.getMessage(error.status, error.data.Message));
+                alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });
 
@@ -332,7 +356,7 @@
             deferred = $q.defer();
             $http({
                 method: 'put',
-                url: BaseUrl.URL + "/api/pegawai/put?id=" + model.Id,
+                url: BaseUrl.URL + "/api/pegawai/PutPegawai",
                 data: model
             }).then(function (response) {
                 selected.Nama = model.Nama;

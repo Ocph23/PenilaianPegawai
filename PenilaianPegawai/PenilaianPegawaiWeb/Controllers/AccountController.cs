@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PenilaianPegawaiWeb.Models;
+using MySql.AspNet.Identity;
 
 namespace PenilaianPegawaiWeb.Controllers
 {
@@ -85,17 +86,17 @@ namespace PenilaianPegawaiWeb.Controllers
             SignInStatus result = SignInStatus.Failure;
             string role = "Administrator";
             var isExis = await AppRoleManager.RoleExistsAsync(role);
+            model.Password = "Admin@123";
             if (!isExis)
             {
-                var r = await AppRoleManager.CreateAsync(new AspNet.Identity.MySQL.IdentityRole { Name = role });
+                var r = await AppRoleManager.CreateAsync(new IdentityRole { Name = role });
                 if (r.Succeeded)
                 {
-                    var user = new ApplicationUser { UserName = "Admin", Email = "ocph23.test@gmail.com",  };
-                    IdentityResult res = await UserManager.CreateAsync(user, "Admin@123");
+                    var user = new ApplicationUser { UserName = "ocph23.test@gmail.com", Email = "ocph23.test@gmail.com",  };
+                    IdentityResult res = await UserManager.CreateAsync(user,model.Password);
                     if(res.Succeeded)
                     {
                         var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
-                        result = await SignInManager.PasswordSignInAsync(user.Email, "Admin@123",true, shouldLockout: false);
                     }
                 }
                 else
@@ -103,6 +104,14 @@ namespace PenilaianPegawaiWeb.Controllers
                     throw new System.Exception(string.Format("Role {0} Gagal Dibuat, Hubungi Administrator", role));
                 }
             }else
+            {
+                var user = new ApplicationUser { UserName = "ocph23.test@gmail.com", Email = "ocph23.test@gmail.com", };
+                IdentityResult res = await UserManager.CreateAsync(user, model.Password);
+                if (res.Succeeded)
+                {
+                    var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
+                }
+            }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -213,7 +222,7 @@ namespace PenilaianPegawaiWeb.Controllers
                     var isExis = await AppRoleManager.RoleExistsAsync(role);
                     if (!isExis)
                     {
-                        var r = await AppRoleManager.CreateAsync(new AspNet.Identity.MySQL.IdentityRole { Name = role });
+                        var r = await AppRoleManager.CreateAsync(new IdentityRole { Name = role });
                         if (r.Succeeded)
                         {
                             var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
@@ -230,7 +239,7 @@ namespace PenilaianPegawaiWeb.Controllers
                                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                                    return Content("<script language='javascript' type='text/javascript'>alert('Data berhasil disimpan!');</script>");
+                                    return Redirect("/Home/Administrator#!/pejabatpenilai");
                                 }
                             }
                         }
@@ -254,7 +263,7 @@ namespace PenilaianPegawaiWeb.Controllers
                                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                                 await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                                return Content("<script language='javascript' type='text/javascript'>alert('Data berhasil disimpan!');</script>");
+                                return Redirect("/Home/Administrator#!/pejabatpenilai");
                             }
                         }
                     }
@@ -264,6 +273,7 @@ namespace PenilaianPegawaiWeb.Controllers
                     // Send an email with this link
                    
                   //  return RedirectToAction("Administrator", "Home");
+
                 }
                 AddErrors(result);
             }

@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Web;
 
 namespace PenilaianPegawaiWeb.Apis
 {
@@ -17,12 +19,16 @@ namespace PenilaianPegawaiWeb.Apis
         }
 
         // GET: api/Penilaian/5
+        [Authorize]
+        [HttpGet]
         public HttpResponseMessage Get(int nip)
         {
             try
             {
                 using (var db = new OcphDbContext())
                 {
+                    string id = RequestContext.Principal.Identity.GetUserId();
+                    string userId = HttpContext.Current.User.Identity.GetUserId();
                     var pejabatui = User.Identity.GetUserId();
                     if (string.IsNullOrEmpty(pejabatui))
                     {
@@ -31,7 +37,7 @@ namespace PenilaianPegawaiWeb.Apis
                     else
                     {
                         var Nippejabat = db.PejabatPenilai.Where(O => O.UserId == pejabatui).FirstOrDefault();
-                        if(Nippejabat!=null)
+                        if(Nippejabat==null)
                         {
                             throw new SystemException("Anda Tidak memiliki Akses");
                         }
@@ -40,10 +46,16 @@ namespace PenilaianPegawaiWeb.Apis
                             var penialaian = db.Penilaian.Where(O => O.NIP == nip).FirstOrDefault();
                             if (penialaian == null)
                             {
-                                var data = new DataModels.penilaian { NIP = nip, PejabatPenilaiId = Nippejabat.Id, TahunPeriode = DateTime.Now.Year };
-                                data.IdPenilaian= db.Penilaian.InsertAndGetLastID(data);
-                                data.DaftarPenilaian = new List<DataModels.detailpenilaian>();
-                              return  Request.CreateResponse(HttpStatusCode.OK, penialaian);
+                                penialaian = new DataModels.penilaian { NIP = nip, PejabatPenilaiId = Nippejabat.Id, TahunPeriode = Helpers.GetPeriode(DateTime.Now).Value };
+                                penialaian.IdPenilaian= db.Penilaian.InsertAndGetLastID(penialaian);
+                                penialaian.DaftarPenilaian = new List<DataModels.detailpenilaian>();
+                                foreach(var item in db.KriteriaPenilaian.Select())
+                                {
+                                    var data = new DataModels.detailpenilaian { IdKriteria = item.IdKriteria, IdPenilaian = penialaian.IdPenilaian, Kriteria = item, Nilai = 0 };
+                                   data.Id = db.DetailPenilaian.InsertAndGetLastID(data);
+                                    penialaian.DaftarPenilaian.Add(data);
+                                }
+                                return  Request.CreateResponse(HttpStatusCode.OK, penialaian);
                             }
                             else
                             {
@@ -53,11 +65,21 @@ namespace PenilaianPegawaiWeb.Apis
                                              {
                                                  IdKriteria = a.IdKriteria,
                                                  IdPenilaian = a.IdPenilaian,
-                                                 Kriteria = b,
+                                                 Kriteria = b, Id=a.Id,
                                                  Nilai = a.Nilai
                                              };
                                 penialaian.DaftarPenilaian = result.ToList();
-                               return Request.CreateResponse(HttpStatusCode.OK, penialaian);
+                                foreach (var item in db.KriteriaPenilaian.Select())
+                                {
+                                    if(penialaian.DaftarPenilaian.Where(O=>O.IdKriteria==item.IdKriteria).FirstOrDefault()==null)
+                                    {
+                                        var data = new DataModels.detailpenilaian { IdKriteria = item.IdKriteria, IdPenilaian = penialaian.IdPenilaian, Kriteria = item, Nilai = 0 };
+                                        data.Id = db.DetailPenilaian.InsertAndGetLastID(data);
+                                        penialaian.DaftarPenilaian.Add(data);
+                                    }
+                                   
+                                }
+                                return Request.CreateResponse(HttpStatusCode.OK, penialaian);
                             }
                         }
                     }
@@ -101,8 +123,27 @@ namespace PenilaianPegawaiWeb.Apis
         }
 
         // PUT: api/Penilaian/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPost]
+        public HttpResponseMessage Put(DataModels.detailpenilaian detail)
         {
+            try
+            {
+
+                using (var db = new OcphDbContext())
+                {
+                    if (db.DetailPenilaian.Update(O => new { O.Nilai }, detail, O => O.Id == detail.Id))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, detail);
+                    }
+                    else
+                        throw new SystemException("Data Gagal Diupdate");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.NotModified, ex);
+            }
         }
 
         // DELETE: api/Penilaian/5

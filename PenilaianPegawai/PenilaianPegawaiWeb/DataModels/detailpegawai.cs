@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
- 
- namespace PenilaianPegawaiWeb.DataModels 
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+
+namespace PenilaianPegawaiWeb.DataModels 
 { 
      [TableName("detailpegawai")] 
      public class detailpegawai:BaseNotifyProperty  
@@ -71,8 +73,9 @@ using DAL;
                      }
           } 
 
-          [DbColumn("SKPejabat")] 
-          public string SKPejabat 
+          [DbColumn("SKPejabat")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public SKPejabat SKPejabat 
           { 
                get{return _skpejabat;} 
                set{ 
@@ -111,8 +114,9 @@ using DAL;
                      }
           } 
 
-          [DbColumn("JenisKepegawaian")] 
-          public string JenisKepegawaian 
+          [DbColumn("JenisKepegawaian")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public JenisKepegawaian JenisKepegawaian 
           { 
                get{return _jeniskepegawaian;} 
                set{ 
@@ -121,8 +125,9 @@ using DAL;
                      }
           } 
 
-          [DbColumn("StatusKepegawaian")] 
-          public string StatusKepegawaian 
+          [DbColumn("StatusKepegawaian")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StatusKepegawaian StatusKepegawaian 
           { 
                get{return _statuskepegawaian;} 
                set{ 
@@ -139,13 +144,12 @@ using DAL;
            private DateTime  _tamatjabatan;
            private int  _tanggungansuamiistri;
            private int  _tanggungananak;
-           private string  _skpejabat;
+           private SKPejabat  _skpejabat;
            private string  _nomorsk;
            private DateTime  _tanggalsk;
            private int  _masakerja;
-           private string  _jeniskepegawaian;
-           private string  _statuskepegawaian;
-           private string  _detailpegawaicol;
+           private JenisKepegawaian  _jeniskepegawaian;
+           private StatusKepegawaian  _statuskepegawaian;
       }
 }
 
