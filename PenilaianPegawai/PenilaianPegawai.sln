@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App\App.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Android", "App\App.Android\App.Android.csproj", "{B379AA6D-E63F-4300-847B-C8199B6DC6A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.AspNet.Identity", "..\..\..\..\Project Tools\MySqlIdentity-master\MySql.AspNet.Identity\MySql.AspNet.Identity.csproj", "{EC3ADD94-5E1D-4A5F-BE06-788AC6C0E252}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.AspNet.Identity", "MySql.AspNet.Identity\MySql.AspNet.Identity.csproj", "{EC3ADD94-5E1D-4A5F-BE06-788AC6C0E252}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
