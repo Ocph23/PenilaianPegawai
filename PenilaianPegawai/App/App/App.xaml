@@ -14,9 +14,17 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
+            <Style x:Key="labelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="#FF011C27"/>
+            </Style>
 
-          
-            
+            <Style x:Key="entryStyle" TargetType="Entry">
+                <Setter Property="Opacity" Value="0.7"/>
+                <Setter Property="TextColor" Value="#FF011C27"/>
+            </Style>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

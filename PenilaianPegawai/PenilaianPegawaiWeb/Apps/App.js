@@ -32,6 +32,11 @@
             templateUrl: "../Apps/Views/laporan.html",
             controller: "LaporanDetailController"
         })
+             .when("/laporanperpegawai", {
+            templateUrl: "../Apps/Views/laporanperpegawai.html",
+            controller: "LaporanPerPegawaiController"
+        })
+
 
         .when("/permohonan", {
             templateUrl: "../Apps/Views/permohonan.html",

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace PenilaianPegawaiWeb.Apis
 {
@@ -28,6 +29,33 @@ namespace PenilaianPegawaiWeb.Apis
                 return Request.CreateResponse(HttpStatusCode.OK, value);
             else
                 return  Request.CreateErrorResponse(HttpStatusCode.NotFound, "Data Tidak Ditemukan");
+        }
+
+
+        [Authorize(Roles = "Penilai")]
+        [HttpGet]
+        public HttpResponseMessage GetPenilaiProfile()
+        {
+            var id = User.Identity.GetUserId();
+            var periode = Helpers.GetPeriode(DateTime.Now);
+            PegawaiCollection coll = new PegawaiCollection(periode.Value);
+            pejabatpenilai penilai = null;
+            using (var db = new OcphDbContext())
+            {
+                penilai = db.PejabatPenilai.Where(O => O.UserId == id).FirstOrDefault();
+            }
+            if (penilai != null)
+            {
+                var pegawai = coll.Pegawai(penilai.NIP);
+                if (pegawai != null)
+                    return Request.CreateResponse(HttpStatusCode.OK, pegawai);
+                else
+                {
+                    throw new SystemException("Profile Tidak Ditemukan");
+                }
+            }
+            else
+                throw new SystemException("User Bukan Pejabat Penilai");
         }
 
         // POST: api/Pegawai

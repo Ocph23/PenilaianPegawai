@@ -7,19 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using App.Services;
 
 namespace App.ViewModels.Main
 {
     public class PegawaiViewModel:BaseViewModel
     {
         private INavigation navigation;
+        private AuthenticationToken token;
 
         public Command LoadItemsCommand { get; private set; }
         public ObservableCollection<Models.pegawai> Pegawais { get;  set; }
 
-        public PegawaiViewModel(INavigation navigation)
+        public PegawaiViewModel(INavigation navigation, AuthenticationToken token)
         {
             this.navigation = navigation;
+            this.token = token;
             Pegawais = new ObservableCollection<Models.pegawai>();
             LoadItemsCommand = new Command((x) => ExecuteLoadItemsCommand(x));
             ExecuteLoadItemsCommand(null);

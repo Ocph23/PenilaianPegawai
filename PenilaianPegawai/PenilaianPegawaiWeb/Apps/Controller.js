@@ -355,5 +355,52 @@
         }
 
     })
+    .controller("LaporanPerPegawaiController", function ($scope, $http, $rootScope, KriteriaService) {
+        $scope.Tahun = [];
+        $scope.Title = "";
+        $scope.collection = [];
+        $scope.Kriterias = [];
+        $scope.Periode = [{ "Value": 1, "Nama": "Januari-Maret" }, { "Value": 2, "Nama": "April-Juni" }, { "Value": 3, "Nama": "Juli-September" }, { "Value": 4, "Nama": "Oktober-Desember" }];
+        $scope.Init = function () {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            for (var y = yyyy - 5; y < yyyy; y++) {
+                $scope.Tahun.push(y + 1);
+            }
+            KriteriaService.source().then(function (response) {
+                $scope.Kriterias = response;
+            });
+        };
 
+        $scope.Cari = function(model)
+        {
+          
+            $scope.Title = "";
+            if (model.Tahun != undefined && model.Periode != undefined)
+            {
+                $scope.Title = "Periode : " + model.Periode.Nama+" "+model.Tahun;
+                model.Tahap = model.Periode.Value;
+                $http({
+                    method: 'Post',
+                    url: "/api/penilaian/GetByPeriode",
+                    data:model
+                }).then(function (response) {
+                    // With the data succesfully returned, we can resolve promise and we can access it in controller
+                    $scope.collection = response.data;
+                }, function (error) {
+
+                    alert(error.data.Message);
+                    // deferred.reject(error);
+                });
+            }
+        }
+     
+        $scope.Print = function ()
+        {
+            window.print();
+        }
+
+    })
     ;

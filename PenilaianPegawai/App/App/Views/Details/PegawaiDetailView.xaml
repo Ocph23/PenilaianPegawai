@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App.Views.Details.PegawaiDetailView" BackgroundColor="#FF2B34EE"
+             x:Class="App.Views.Details.PegawaiDetailView" BackgroundImage="anotherbg.jpg"
                xmlns:converters="clr-namespace:App.Helpers;assembly=App"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Title="Detail Pegawai">
@@ -26,89 +26,89 @@
                     </controls:CircleImage.HeightRequest>
                 </controls:CircleImage>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label TextColor="#abd2fa"  FontSize="14"  Text="NIP" WidthRequest="150" />
-                    <Label TextColor="#abd2fa"  FontSize="13"  Text="{Binding Pegawai.NIP}"  />
+                    <Label Style="{StaticResource labelStyle}"  FontSize="14"  Text="NIP" WidthRequest="150" />
+                    <Label Style="{StaticResource labelStyle}"  FontSize="13"  Text="{Binding Pegawai.NIP}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label TextColor="#abd2fa"  FontSize="14"  Text="Nama" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Nama}"  />
-                </StackLayout>
-
-                <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="TTL" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.TTL}"  />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Jenis Kelamin" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.JenisKelamin}"  />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Kartu Pegawai" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.NomorKartuPegawai}"  />
+                    <Label Style="{StaticResource labelStyle}"  FontSize="14"  Text="Nama" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Nama}"  />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Pendidikan" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Pendidikan}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="TTL" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.TTL}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="5">
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Jenis Kelamin" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.JenisKelamin}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="5">
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Kartu Pegawai" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.NomorKartuPegawai}"  />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Golongan" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.PangkatGolonganTerakhir}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Pendidikan" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Pendidikan}"  />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Jabatan" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.JabatanAkhir}"  />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Asal" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Asal}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Golongan" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.PangkatGolonganTerakhir}"  />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Tanggal Mulai CPNS" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.TamatCPNS,StringFormat='{}{0:dd/MM/yyyy}'}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Jabatan" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.JabatanAkhir}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Tanggal Mulai Golongan" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.TamatGolongan,StringFormat='{}{0:dd/MM/yyyy}'}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Asal" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Asal}"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="5">
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Tanggal Mulai CPNS" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.TamatCPNS,StringFormat='{}{0:dd/MM/yyyy}'}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Tanggal Mulai Jabatan" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.TamatJabatan,StringFormat='{}{0:dd/MM/yyyy}'}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Tanggal Mulai Golongan" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.TamatGolongan,StringFormat='{}{0:dd/MM/yyyy}'}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Tanggungan Suami/Istri" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.TanggunganSuamiIstri}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Tanggal Mulai Jabatan" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.TamatJabatan,StringFormat='{}{0:dd/MM/yyyy}'}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Tanggungan Anak" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.TanggunganAnak}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Tanggungan Suami/Istri" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.TanggunganSuamiIstri}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="SKPejabat" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.SKPejabat}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Tanggungan Anak" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.TanggunganAnak}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Nomor SK" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.NomorSK}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="SKPejabat" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.SKPejabat}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Tanggal SK" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.TanggalSK,StringFormat='{}{0:dd/MM/yyyy}'}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Nomor SK" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.NomorSK}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Masa Kerja" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.MasaKerja}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Tanggal SK" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.TanggalSK,StringFormat='{}{0:dd/MM/yyyy}'}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Jenis Kepegawain" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.JenisKepegawaian}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Masa Kerja" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.MasaKerja}"  />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="5">
-                    <Label FontSize="14" TextColor="#abd2fa"  Text="Jenis Kepegawain" WidthRequest="150" />
-                    <Label FontSize="13" TextColor="#abd2fa"  Text="{Binding Pegawai.Detail.StatusKepegawaian}"  />
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Jenis Kepegawain" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.JenisKepegawaian}"  />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="5">
+                    <Label FontSize="14" Style="{StaticResource labelStyle}"  Text="Jenis Kepegawain" WidthRequest="150" />
+                    <Label FontSize="13" Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Detail.StatusKepegawaian}"  />
                 </StackLayout>
 
 

@@ -25,7 +25,7 @@ namespace App.ViewModels
         public LoginViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            LoginCommand = new Command(async (x) => await LoginAction(x), x => LoginValidate(x));
+            LoginCommand = new Command((x) => LoginAction(x), x => LoginValidate(x));
         }
 
         private bool LoginValidate(object arg)
@@ -37,7 +37,7 @@ namespace App.ViewModels
             return false;
         }
 
-        private async Task LoginAction(object x)
+        private async void LoginAction(object x)
         {
             if (IsBusy)
                 return;
@@ -54,7 +54,7 @@ namespace App.ViewModels
                     if (token != null)
                     {
                         var main = new BaseMain(token);
-
+                        Helpers.Mainpage.Token = token;
                         ((App)App.Current).ChangeScreen(main);
                     }
                     else
@@ -92,7 +92,7 @@ namespace App.ViewModels
             get { return _email; }
             set
             {
-                LoginCommand = new Command(async (x) => await LoginAction(x), LoginValidate);
+                LoginCommand = new Command((x) => LoginAction(x), LoginValidate);
                 SetProperty(ref _email, value);
             }
         }
@@ -101,7 +101,7 @@ namespace App.ViewModels
             get { return _password; }
             set
             {
-               LoginCommand = new Command(async (x) => await LoginAction(x), LoginValidate);
+               LoginCommand = new Command((x) => LoginAction(x), LoginValidate);
                 SetProperty(ref _password, value);
             }
         }

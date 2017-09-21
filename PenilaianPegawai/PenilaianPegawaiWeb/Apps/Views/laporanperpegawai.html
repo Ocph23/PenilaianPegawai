@@ -1,0 +1,87 @@
+﻿<style type="text/css" media="print">
+    .dontprint {
+        display: none;
+    }
+</style>
+<section class="forms">
+    <div class="container-fluid" ng-init="Init()">
+        <header>
+            <center>
+                <h1> LAPORAN PENILAIAN</h1>
+                <h2>{{Title}}</h2>
+
+            </center>
+        </header>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-block">
+                      
+                        
+                        <div class="form-group dontprint">
+                            <label class="col-sm-6">Tahun</label>
+                            <div class="col-sm-6">
+                                <select type="text" required class="form-control form-control-success" ng-model="model.Tahun" ng-options="y for (x, y) in Tahun"></select>
+                            </div>
+                        </div>
+                        <div class="form-group dontprint">
+                            <label class="col-sm-6">Periode</label>
+                            <div class="col-sm-6">
+                                <select type="text" required class="form-control form-control-success" ng-model="model.Periode" ng-options="y.Nama for (x, y) in Periode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group dontprint">
+                            <label class="col-sm-6"></label>
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary" ng-click="Cari(model)">Cari</button>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        NIP
+                                    </th>
+                                    <th>
+                                        Nama
+                                    </th>
+                                    <th ng-repeat="a in Kriterias">{{a.Nama}}</th>
+                                    <th>
+                                        Rata-Rata
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in collection | filter:Search">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{item.Pegawai.NIP}}
+                                    </td>
+                                    <td>
+                                        {{item.Pegawai.Nama}}
+                                    </td>
+                                    <td ng-repeat="b in item.DaftarPenilaian">{{b.Nilai}}</td>
+                                    <td>
+                                        {{item.RataRata}}
+                                    </td>
+                                  
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="card-footer d-flex align-items-center" ng-show="collection.length>0">
+                       <button class="btn btn-info dontprint" ng-click="Print()">Cetak</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -13,12 +13,21 @@ namespace App.Views.Main
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PegawaiView : ContentPage
     {
+        private AuthenticationToken token;
+
         public PegawaiViewModel VM { get; }
 
         public PegawaiView()
         {
             InitializeComponent();
-            this.VM= new ViewModels.Main.PegawaiViewModel(Navigation);
+           
+        }
+
+        public PegawaiView(AuthenticationToken token)
+        {
+            InitializeComponent();
+            this.token = token;
+            this.VM = new ViewModels.Main.PegawaiViewModel(Navigation,token);
             this.BindingContext = VM;
         }
 

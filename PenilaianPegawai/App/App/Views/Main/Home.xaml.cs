@@ -12,10 +12,16 @@ namespace App.Views.Main
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Home : ContentPage
     {
+
         public Home()
         {
             InitializeComponent();
-            this.BindingContext = new ViewModels.Main.HomeViewModel(Navigation);
+        }
+
+        public Home(AuthenticationToken token)
+        {
+            InitializeComponent();
+            this.BindingContext = new ViewModels.Main.HomeViewModel(Navigation,token);
         }
     }
 }

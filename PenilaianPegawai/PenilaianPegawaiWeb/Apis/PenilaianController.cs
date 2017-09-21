@@ -7,6 +7,8 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web;
+using PenilaianPegawaiWeb.Models;
+using PenilaianPegawaiWeb.DataModels;
 
 namespace PenilaianPegawaiWeb.Apis
 {
@@ -16,6 +18,44 @@ namespace PenilaianPegawaiWeb.Apis
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
+        }
+
+       // [Authorize]
+        [HttpPost]
+        public HttpResponseMessage GetByPeriode(Periode periode)
+        {
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+
+                    var kriterias = from a in db.DetailPenilaian.Select()
+                                    join b in db.KriteriaPenilaian.Select() on a.IdKriteria equals b.IdKriteria
+                                    select new detailpenilaian { Id = a.Id, IdKriteria = a.IdKriteria, IdPenilaian = a.IdPenilaian, Nilai = a.Nilai, Kriteria = b };
+                                    
+
+
+                    var result = from b in db.Penilaian.Where(O => O.TahunPeriode == periode.Value)
+                                join a in db.Pegawai.Select() on b.NIP equals a.NIP
+                                 join f in db.PejabatPenilai.Select() on b.PejabatPenilaiId equals f.Id
+                                 join c in kriterias on b.IdPenilaian equals c.IdPenilaian into cgroup
+                                 select new penilaian { Pegawai = a, DaftarPenilaian = cgroup.ToList(), RataRata=cgroup.Sum(O=>O.Nilai)/cgroup.Count(), TahunPeriode = b.TahunPeriode,
+                                     IdPenilaian = b.IdPenilaian, NIP = b.NIP, PejabatPenilaiId = b.PejabatPenilaiId };
+
+
+
+                                return Request.CreateResponse(HttpStatusCode.OK, result.ToList().OrderByDescending(O=>O.RataRata));
+
+
+                   
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
         }
 
         // GET: api/Penilaian/5

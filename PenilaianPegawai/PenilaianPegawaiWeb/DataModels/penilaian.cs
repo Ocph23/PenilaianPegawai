@@ -54,6 +54,7 @@ using DAL;
         public pegawai PejabatPenilai { get; internal set; }
         public List<detailpenilaian> DaftarPenilaian { get; internal set; }
         public pegawai Pegawai { get; internal set; }
+        public double RataRata { get; internal set; }
 
         private int  _idpenilaian;
            private int  _tahunperiode;

@@ -57,7 +57,6 @@
     <Compile Include="Services\PegawaiDataStore.cs" />
     <Compile Include="Services\PenilaianDataStore.cs" />
     <Compile Include="Services\RestService.cs" />
-    <Compile Include="Services\UserDataStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Details\PegawaiDetailViewModel.cs" />
     <Compile Include="ViewModels\Details\PenilaianViewModel.cs" />

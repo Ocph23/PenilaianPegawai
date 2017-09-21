@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App.Views.Details.PenilaianView" BackgroundColor="#FF2B34EE"
+             x:Class="App.Views.Details.PenilaianView" BackgroundImage="anotherbg.jpg"
                xmlns:converters="clr-namespace:App.Helpers;assembly=App"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Title="Form Penilaian">
@@ -39,19 +39,19 @@
             </StackLayout>
             <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
                 <StackLayout Orientation="Horizontal">
-                    <Label TextColor="#abd2fa"  Text="NIP" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                    <Label Style="{StaticResource labelStyle}"  Text="NIP" LineBreakMode="NoWrap" 
                      WidthRequest="100" FontSize="16"/>
-                    <Label TextColor="#abd2fa"  Text="{Binding Pegawai.NIP}"></Label>
+                    <Label Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.NIP}"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label TextColor="#abd2fa"  Text="Nama" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                    <Label Style="{StaticResource labelStyle}"  Text="Nama" LineBreakMode="NoWrap" 
                      WidthRequest="100" FontSize="16"/>
-                    <Label TextColor="#abd2fa"  Text="{Binding Pegawai.Nama}"></Label>
+                    <Label Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Nama}"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label TextColor="#abd2fa"  Text="Jabatan" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                    <Label Style="{StaticResource labelStyle}"  Text="Jabatan" LineBreakMode="NoWrap" 
                      WidthRequest="100" FontSize="16"/>
-                    <Label TextColor="#abd2fa"  Text="{Binding Pegawai.JabatanAkhir}"></Label>
+                    <Label Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.JabatanAkhir}"></Label>
                 </StackLayout>
             </StackLayout>
 
@@ -71,8 +71,8 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Label TextColor="#abd2fa" FontSize="20" Grid.Column="0" Text="Kriteria"></Label>
-                            <Label TextColor="#abd2fa" FontSize="20"  Grid.Column="1" Text="Nilai" HorizontalOptions="Center"></Label>
+                            <Label Style="{StaticResource labelStyle}" FontSize="20" Grid.Column="0" Text="Kriteria"></Label>
+                            <Label Style="{StaticResource labelStyle}" FontSize="20"  Grid.Column="1" Text="Nilai" HorizontalOptions="Center"></Label>
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
@@ -80,12 +80,12 @@
                             <ViewCell >
                                 <Grid Margin="0,10">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30*"></ColumnDefinition>
                                         <ColumnDefinition Width="70*"></ColumnDefinition>
+                                        <ColumnDefinition Width="30*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label TextColor="#abd2fa"  Grid.Column="0" Text="{Binding Kriteria.Nama}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                    <Label Style="{StaticResource labelStyle}"  Grid.Column="0" Text="{Binding Kriteria.Nama}" LineBreakMode="NoWrap" 
                                                                 FontSize="16"/>
-                                    <Entry Opacity="0.7" TextColor="#abd2fa"  Grid.Column="1" x:Name="{Binding Id}" FontSize="13" Text="{Binding Nilai}" Unfocused="Entry_Unfocused"/>
+                                    <Entry Opacity="0.9" Style="{StaticResource entryStyle}"  Grid.Column="1" x:Name="{Binding Id}" FontSize="14" Text="{Binding Nilai}" Unfocused="Entry_Unfocused"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

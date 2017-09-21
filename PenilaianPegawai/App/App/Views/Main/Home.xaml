@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Home" BackgroundColor="#FF2B34EE"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Home" BackgroundImage="anotherbg.jpg"
+               xmlns:converters="clr-namespace:App.Helpers;assembly=App"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="App.Views.Main.Home">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Profile" Command="{Binding ShowProfile}" ></ToolbarItem>
-    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+   
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -14,16 +19,27 @@
                 <RowDefinition Height="40*" ></RowDefinition>
             </Grid.RowDefinitions>
             <StackLayout Grid.Row="0" Margin="10,30" >
-                <Image HeightRequest="100"  Source="profile_generic.png"></Image>
-                <Label TextColor="#abd2fa" HorizontalOptions="Center">Nama</Label>
+                <controls:CircleImage Source="{Binding Profile.Foto,Converter={StaticResource ImageConverter}}" Aspect="AspectFill">
+                    <controls:CircleImage.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android, iOS">50</On>
+                        </OnPlatform>
+                    </controls:CircleImage.WidthRequest>
+                    <controls:CircleImage.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android, iOS">50</On>
+                        </OnPlatform>
+                    </controls:CircleImage.HeightRequest>
+                </controls:CircleImage>
+                <Label Margin="10" Style="{StaticResource labelStyle}" HorizontalOptions="Center" Text="{Binding Profile.Nama}"></Label>
             </StackLayout>
             <StackLayout Grid.Row="1" >
-                <Label TextColor="#abd2fa"  HorizontalOptions="Center">Selamat Datang</Label>
+                <Label Style="{StaticResource labelStyle}"  HorizontalOptions="Center">WELCOME</Label>
             </StackLayout>
             <StackLayout Grid.Row="2" VerticalOptions="Center" >
-                <Label TextColor="#abd2fa" FontSize="20"  HorizontalOptions="Center">APLIKASI</Label>
-                <Label TextColor="#abd2fa"  HorizontalOptions="Center">PENILAIAN KINERJA PEGAWAI</Label>
-                <Label TextColor="#abd2fa"  HorizontalOptions="Center">SATKER PSPLP PROVINSI PAPUA</Label>
+                <Label  Style="{StaticResource labelStyle}" HorizontalOptions="Center">APLIKASI</Label>
+                <Label Style="{StaticResource labelStyle}" FontSize="15" HorizontalOptions="Center">PENILAIAN KINERJA PEGAWAI</Label>
+                <Label Style="{StaticResource labelStyle}" FontSize="16"  HorizontalOptions="Center">SATKER PSPLP PROVINSI PAPUA</Label>
                 <Image Source="logopu.png" HeightRequest="30" Margin="2"/>
             </StackLayout>
         </Grid>

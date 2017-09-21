@@ -9,6 +9,7 @@ namespace PenilaianPegawaiWeb.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+        [Authorize]
         public ActionResult Index()
         {
 

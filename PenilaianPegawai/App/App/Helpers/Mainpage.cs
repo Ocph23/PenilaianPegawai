@@ -1,4 +1,5 @@
-﻿using App.Views;
+﻿using App.Services;
+using App.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace App.Helpers
             var x = await Task.FromResult(Xamarin.Forms.Application.Current.MainPage);
             return x as BaseMain;
         }
+
+        public static AuthenticationToken Token { get; set; }
     }
 }

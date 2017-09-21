@@ -64,7 +64,7 @@ table {
 }
 
 .badge.badge-primary {
-  background: #33b35a;
+  background: #f0ad4e;
 }
 
 .page {
@@ -97,7 +97,7 @@ h2 {
   width: 100% !important;
   height: auto !important;
   box-shadow: none !important;
-  color: #33b35a !important;
+  color: #f0ad4e !important;
   border-right: 1px solid #eee;
 }
 
@@ -374,7 +374,7 @@ nav.navbar a.menu-btn i[class*='icon-'] {
 }
 
 nav.navbar a.menu-btn:hover {
-  background: #33b35a;
+  background: #f0ad4e;
 }
 
 /*  NAVBAR MEDIAQUERIES ---------------------------------- */
@@ -447,12 +447,12 @@ nav.side-navbar li {
 }
 
 nav.side-navbar li.active a {
-  background: #33b35a;
+  background: #f0ad4e;
 }
 
 nav.side-navbar li ul.collapse a {
   padding-left: 20px;
-  border-left: 2px solid #33b35a;
+  border-left: 2px solid #f0ad4e;
 }
 
 nav.side-navbar li ul.collapse a:hover {
@@ -489,7 +489,7 @@ nav.side-navbar a {
 }
 
 nav.side-navbar a:focus, nav.side-navbar a:hover, nav.side-navbar a[aria-expanded="true"] {
-  background: #33b35a;
+  background: #f0ad4e;
   color: #fff;
   border-radius: 2px;
 }
@@ -644,7 +644,7 @@ section.dashboard-counts .count-title span {
 
 section.dashboard-counts .count-title i {
   font-size: 1.5em;
-  color: #33b35a;
+  color: #f0ad4e;
 }
 
 section.dashboard-counts .icon {
@@ -827,7 +827,7 @@ section.statistics .user-activity .progress {
 }
 
 section.statistics .user-activity .progress .progress-bar.bg-primary {
-  background: #33b35a !important;
+  background: #f0ad4e !important;
 }
 
 section.statistics .user-activity .page-statistics {
@@ -837,7 +837,7 @@ section.statistics .user-activity .page-statistics {
 section.statistics .user-activity .page-statistics strong {
   display: block;
   text-transform: uppercase;
-  color: #33b35a;
+  color: #f0ad4e;
   font-size: 2em;
 }
 
@@ -1511,7 +1511,7 @@ section.forms .input-group-btn .dropdown-menu a {
 .login-page form label.label-custom.active,
 .register-page form label.label-custom.active {
   top: 5px;
-  color: #33b35a;
+  color: #f0ad4e;
 }
 
 .login-page a.forgot-pass,
@@ -1771,8 +1771,8 @@ fieldset[disabled] a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #33b35a;
-  border-color: #33b35a;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 
 .btn-primary:hover {
@@ -1786,8 +1786,8 @@ fieldset[disabled] a.btn {
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
-  background-color: #33b35a;
-  border-color: #33b35a;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 
 .btn-primary:active, .btn-primary.active,
@@ -1944,16 +1944,16 @@ fieldset[disabled] a.btn {
 }
 
 .btn-outline-primary {
-  color: #33b35a;
+  color: #f0ad4e;
   background-image: none;
   background-color: transparent;
-  border-color: #33b35a;
+  border-color: #f0ad4e;
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #33b35a;
-  border-color: #33b35a;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
@@ -1961,15 +1961,15 @@ fieldset[disabled] a.btn {
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-  color: #33b35a;
+  color: #f0ad4e;
   background-color: transparent;
 }
 
 .btn-outline-primary:active, .btn-outline-primary.active,
 .show > .btn-outline-primary.dropdown-toggle {
   color: #fff;
-  background-color: #33b35a;
-  border-color: #33b35a;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 
 .btn-outline-secondary {
@@ -2142,7 +2142,7 @@ body {
 }
 
 a {
-  color: #33b35a;
+  color: #f0ad4e;
   text-decoration: none;
 }
 
@@ -2237,7 +2237,7 @@ h6, .h6 {
 }
 
 .text-primary {
-  color: #33b35a !important;
+  color: #f0ad4e !important;
 }
 
 a.text-primary:focus, a.text-primary:hover {
@@ -2261,8 +2261,8 @@ a.text-primary:focus, a.text-primary:hover {
 .page-item.active .page-link {
   z-index: 2;
   color: #fff;
-  background-color: #33b35a;
-  border-color: #33b35a;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 
 .page-item.disabled .page-link {
@@ -2276,7 +2276,7 @@ a.text-primary:focus, a.text-primary:hover {
 .page-link {
   padding: 0.5rem 0.75rem;
   line-height: 1.25;
-  color: #33b35a;
+  color: #f0ad4e;
   background-color: #fff;
   border: 1px solid #ddd;
 }
