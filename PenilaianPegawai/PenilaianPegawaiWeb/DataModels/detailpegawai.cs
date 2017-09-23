@@ -12,18 +12,19 @@ namespace PenilaianPegawaiWeb.DataModels
      [TableName("detailpegawai")] 
      public class detailpegawai:BaseNotifyProperty  
    {
-          [PrimaryKey("NIP")] 
-          [DbColumn("NIP")] 
-          public int NIP 
-          { 
-               get{return _nip;} 
-               set{ 
-                      _nip=value; 
-                     OnPropertyChange("NIP");
-                     }
-          } 
+        [DbColumn("IdPegawai")]
 
-          [DbColumn("TamatCPNS")] 
+        public int IdPegawai
+        {
+            get { return _IdPegawai; }
+            set
+            {
+                _IdPegawai = value;
+                OnPropertyChange("IdPegawai");
+            }
+        }
+
+        [DbColumn("TamatCPNS")] 
           public DateTime TamatCPNS 
           { 
                get{return _tamatcpns;} 
@@ -150,7 +151,8 @@ namespace PenilaianPegawaiWeb.DataModels
            private int  _masakerja;
            private JenisKepegawaian  _jeniskepegawaian;
            private StatusKepegawaian  _statuskepegawaian;
-      }
+        private int _IdPegawai;
+    }
 }
 
 

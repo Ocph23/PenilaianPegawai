@@ -195,7 +195,7 @@ namespace PenilaianPegawaiWeb.Controllers
                 var data = db.Pegawai.Select().ToList();
                 ViewBag.Data = data.Select(i => new SelectListItem
                 {
-                    Value = i.NIP.ToString(),
+                    Value = i.IdPegawai.ToString(),
                     Text = i.Nama
                 });
             }
@@ -234,7 +234,7 @@ namespace PenilaianPegawaiWeb.Controllers
                             {
                                 using (var db = new OcphDbContext())
                                 {
-                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP = model.NIP, UserId = user.Id });
+                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai {  IdPegawai = model.IdPegawai, UserId = user.Id });
                                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
@@ -258,7 +258,7 @@ namespace PenilaianPegawaiWeb.Controllers
                         {
                             using (var db = new OcphDbContext())
                             {
-                              var re=  db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP=model.NIP, UserId=user.Id ,Id=0});
+                              var re=  db.PejabatPenilai.Insert(new DataModels.pejabatpenilai {  IdPegawai=model.IdPegawai, UserId=user.Id ,Id=0});
                                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                                 await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");

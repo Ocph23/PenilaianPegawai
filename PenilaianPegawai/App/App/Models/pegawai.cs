@@ -8,15 +8,22 @@ namespace App.Models
 {
     public class pegawai : BaseDataObject
     {
-        public int NIP
+        public int IdPegawai
+        {
+            get { return _idpegawai; }
+            set
+            {
+                SetProperty(ref _idpegawai,value);
+            }
+        }
+        public string NIP
         {
             get { return _nip; }
             set
             {
-                SetProperty(ref _nip,value);
+                SetProperty(ref _nip, value);
             }
         }
-
         public string Nama
         {
             get { return _nama; }
@@ -118,7 +125,7 @@ namespace App.Models
         public detailpegawai Detail { get; set; }
         public penilaian HasilPenilaian { get; set; }
 
-        private int _nip;
+        private int _idpegawai;
         private string _nama;
         private string _tempatlahir;
         private DateTime _tanggallahir;
@@ -129,5 +136,6 @@ namespace App.Models
         private string _asal;
         private string _jeniskelamin;
         private byte[] _foto;
+        private string _nip;
     }
 }

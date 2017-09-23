@@ -31,13 +31,13 @@ using DAL;
                      }
           } 
 
-          [DbColumn("NIP")] 
-          public int NIP 
+          [DbColumn("IdPegawai")] 
+          public int IdPegawai 
           { 
                get{return _nip;} 
                set{ 
                       _nip=value; 
-                     OnPropertyChange("NIP");
+                     OnPropertyChange("IdPegawai");
                      }
           } 
 

@@ -46,7 +46,7 @@ namespace PenilaianPegawaiWeb.Apis
             }
             if (penilai != null)
             {
-                var pegawai = coll.Pegawai(penilai.NIP);
+                var pegawai = coll.Pegawai(penilai.IdPegawai);
                 if (pegawai != null)
                     return Request.CreateResponse(HttpStatusCode.OK, pegawai);
                 else
@@ -145,7 +145,7 @@ namespace PenilaianPegawaiWeb.Apis
             {
                 try
                 {
-                    if (db.Pegawai.Delete(O=>O.NIP==id))
+                    if (db.Pegawai.Delete(O=>O.IdPegawai==id))
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, true);
                     }

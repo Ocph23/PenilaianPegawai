@@ -21,15 +21,15 @@ namespace PenilaianPegawaiWeb.Apis
             using (var db = new OcphDbContext())
             {
                 var result = from a in db.Pegawai.Select()
-                             join b in db.PegawaiDetail.Select() on a.NIP equals b.NIP into pegawaigrpup
+                             join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
                              from b in pegawaigrpup.DefaultIfEmpty()
                              select new pegawai
                              {
                                  Asal = a.Asal, Foto=a.Foto,
                                  JabatanAkhir = a.JabatanAkhir,
                                  JenisKelamin = a.JenisKelamin,
-                                 Nama = a.Nama,
-                                 NIP = a.NIP,
+                                 Nama = a.Nama, NIP=a.NIP,
+                                 IdPegawai = a.IdPegawai,
                                  NomorKartuPegawai = a.NomorKartuPegawai,
                                  PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                  Pendidikan = a.Pendidikan,
@@ -77,7 +77,7 @@ namespace PenilaianPegawaiWeb.Apis
             {
                 try
                 {
-                    var detail = db.PegawaiDetail.Where(O => O.NIP == p.NIP).FirstOrDefault();
+                    var detail = db.PegawaiDetail.Where(O => O.IdPegawai == p.IdPegawai).FirstOrDefault();
                     if(detail!=null)
                     {
                         return db.PegawaiDetail.Update(O => new
@@ -93,7 +93,7 @@ namespace PenilaianPegawaiWeb.Apis
                             O.TanggalSK,
                             O.TanggunganAnak,
                             O.TanggunganSuamiIstri
-                        }, p, O => O.NIP == p.NIP);
+                        }, p, O => O.IdPegawai == p.IdPegawai);
                     }else
                         return db.PegawaiDetail.Insert(p);
                 }
@@ -114,30 +114,30 @@ namespace PenilaianPegawaiWeb.Apis
                     O.Asal,
                     O.JabatanAkhir,
                     O.JenisKelamin,
-                    O.Nama,
+                    O.Nama, O.NIP,
                     O.NomorKartuPegawai,
                     O.PangkatGolonganTerakhir,
                     O.Pendidikan,
                     O.TanggalLahir,
                     O.TempatLahir
-                }, p, O => O.NIP == p.NIP);
+                }, p, O => O.IdPegawai == p.IdPegawai);
             }
         }
 
-        public pegawai Pegawai(int NIP)
+        public pegawai Pegawai(int IdPegawai)
         {
             using (var db = new OcphDbContext())
             {
-                var result = from a in db.Pegawai.Where(O=>O.NIP==NIP)
-                             join b in db.PegawaiDetail.Select() on a.NIP equals b.NIP into pegawaigrpup
+                var result = from a in db.Pegawai.Where(O=>O.IdPegawai==IdPegawai)
+                             join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
                              from b in pegawaigrpup.DefaultIfEmpty()
                              select new pegawai
                              {
                                  Asal = a.Asal,Foto=a.Foto,
                                  JabatanAkhir = a.JabatanAkhir,
                                  JenisKelamin = a.JenisKelamin,
-                                 Nama = a.Nama,
-                                 NIP = a.NIP,
+                                 Nama = a.Nama, NIP=a.NIP,
+                                 IdPegawai = a.IdPegawai,
                                  NomorKartuPegawai = a.NomorKartuPegawai,
                                  PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                  Pendidikan = a.Pendidikan,
@@ -161,15 +161,15 @@ namespace PenilaianPegawaiWeb.Apis
                     using (var db = new OcphDbContext())
                     {
                         var result = from a in db.Pegawai.Select()
-                                     join b in db.PegawaiDetail.Select() on a.NIP equals b.NIP into pegawaigrpup
+                                     join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
                                      from b in pegawaigrpup.DefaultIfEmpty()
                                      select new pegawai
                                      {
                                          Asal = a.Asal,
                                          JabatanAkhir = a.JabatanAkhir,
                                          JenisKelamin = a.JenisKelamin,
-                                         Nama = a.Nama,
-                                         NIP = a.NIP,
+                                         Nama = a.Nama, NIP=a.NIP,
+                                         IdPegawai = a.IdPegawai,
                                          NomorKartuPegawai = a.NomorKartuPegawai,
                                          PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                          Pendidikan = a.Pendidikan,
@@ -181,12 +181,12 @@ namespace PenilaianPegawaiWeb.Apis
 
 
                         var penilaians = from a in db.Penilaian.Where(o=>o.TahunPeriode==periode)
-                                         join n in db.PejabatPenilai.Select() on a.NIP equals n.NIP
-                                         join m in result on n.NIP equals m.NIP
+                                         join n in db.PejabatPenilai.Select() on a.IdPegawai equals n.IdPegawai
+                                         join m in result on n.IdPegawai equals m.IdPegawai
                                          select new penilaian
                                          {
                                              IdPenilaian = a.IdPenilaian,
-                                             NIP = a.NIP,
+                                             IdPegawai = a.IdPegawai,
                                              PejabatPenilaiId = a.PejabatPenilaiId,
                                              TahunPeriode = a.TahunPeriode,
                                              PejabatPenilai = m
@@ -210,7 +210,7 @@ namespace PenilaianPegawaiWeb.Apis
                                             {
                                                 DaftarPenilaian = k.ToList(),
                                                 IdPenilaian = a.IdPenilaian,
-                                                NIP = a.NIP,
+                                                IdPegawai = a.IdPegawai,
                                                 PejabatPenilai = a.PejabatPenilai,
                                                 PejabatPenilaiId = a.PejabatPenilaiId,
                                                 TahunPeriode = a.TahunPeriode,
@@ -219,14 +219,14 @@ namespace PenilaianPegawaiWeb.Apis
 
 
                         return (from a in result
-                                join b in realpenilaian on a.NIP equals b.NIP
+                                join b in realpenilaian on a.IdPegawai equals b.IdPegawai
                                 select new pegawai
                                 {
                                     Asal = a.Asal,
                                     JabatanAkhir = a.JabatanAkhir,
                                     JenisKelamin = a.JenisKelamin,
-                                    Nama = a.Nama,
-                                    NIP = a.NIP,
+                                    Nama = a.Nama, NIP=a.NIP,
+                                    IdPegawai = a.IdPegawai,
                                     NomorKartuPegawai = a.NomorKartuPegawai,
                                     PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                     Pendidikan = a.Pendidikan,
@@ -246,7 +246,7 @@ namespace PenilaianPegawaiWeb.Apis
         }
 
 
-        public pegawai PenilaianPegawai(int periode, int NIP)
+        public pegawai PenilaianPegawai(int periode, int IdPegawai)
         {
             try
             {
@@ -258,16 +258,16 @@ namespace PenilaianPegawaiWeb.Apis
                 {
                     using (var db = new OcphDbContext())
                     {
-                        var result = from a in db.Pegawai.Where(O=>O.NIP==NIP)
-                                     join b in db.PegawaiDetail.Select() on a.NIP equals b.NIP into pegawaigrpup
+                        var result = from a in db.Pegawai.Where(O=>O.IdPegawai==IdPegawai)
+                                     join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
                                      from b in pegawaigrpup.DefaultIfEmpty()
                                      select new pegawai
                                      {
                                          Asal = a.Asal,
                                          JabatanAkhir = a.JabatanAkhir,
                                          JenisKelamin = a.JenisKelamin,
-                                         Nama = a.Nama,
-                                         NIP = a.NIP,
+                                         Nama = a.Nama, NIP=a.NIP,
+                                         IdPegawai = a.IdPegawai,
                                          NomorKartuPegawai = a.NomorKartuPegawai,
                                          PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                          Pendidikan = a.Pendidikan,
@@ -279,12 +279,12 @@ namespace PenilaianPegawaiWeb.Apis
 
 
                         var penilaians = from a in db.Penilaian.Where(o => o.TahunPeriode == periode)
-                                         join n in db.PejabatPenilai.Select() on a.NIP equals n.NIP
-                                         join m in result on n.NIP equals m.NIP
+                                         join n in db.PejabatPenilai.Select() on a.IdPegawai equals n.IdPegawai
+                                         join m in result on n.IdPegawai equals m.IdPegawai
                                          select new penilaian
                                          {
                                              IdPenilaian = a.IdPenilaian,
-                                             NIP = a.NIP,
+                                             IdPegawai = a.IdPegawai,
                                              PejabatPenilaiId = a.PejabatPenilaiId,
                                              TahunPeriode = a.TahunPeriode,
                                              PejabatPenilai = m
@@ -308,7 +308,7 @@ namespace PenilaianPegawaiWeb.Apis
                                             {
                                                 DaftarPenilaian = k.ToList(),
                                                 IdPenilaian = a.IdPenilaian,
-                                                NIP = a.NIP,
+                                                IdPegawai = a.IdPegawai,
                                                 PejabatPenilai = a.PejabatPenilai,
                                                 PejabatPenilaiId = a.PejabatPenilaiId,
                                                 TahunPeriode = a.TahunPeriode,
@@ -317,14 +317,14 @@ namespace PenilaianPegawaiWeb.Apis
 
 
                         return (from a in result
-                                join b in realpenilaian on a.NIP equals b.NIP
+                                join b in realpenilaian on a.IdPegawai equals b.IdPegawai
                                 select new pegawai
                                 {
                                     Asal = a.Asal,
                                     JabatanAkhir = a.JabatanAkhir,
                                     JenisKelamin = a.JenisKelamin,
-                                    Nama = a.Nama,
-                                    NIP = a.NIP,
+                                    Nama = a.Nama, NIP=a.NIP,
+                                    IdPegawai = a.IdPegawai,
                                     NomorKartuPegawai = a.NomorKartuPegawai,
                                     PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                     Pendidikan = a.Pendidikan,

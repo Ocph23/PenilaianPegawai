@@ -363,6 +363,8 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Android\com.ocph23.AppPenilaian-Signed.apk" />
+    <None Include="Properties\PublishProfiles\penilaianpegawai - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\penilaianpegawai - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />

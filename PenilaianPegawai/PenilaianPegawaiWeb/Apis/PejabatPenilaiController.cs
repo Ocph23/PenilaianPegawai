@@ -16,8 +16,8 @@ namespace PenilaianPegawaiWeb.Apis
             using (var db = new OcphDbContext())
             {
                 var result = from a in db.PejabatPenilai.Select()
-                             join b in db.Pegawai.Select() on a.NIP equals b.NIP
-                             select new DataModels.pejabatpenilai { Id = a.Id, NIP = a.NIP, UserId = a.UserId, Pegawai = b };
+                             join b in db.Pegawai.Select() on a.IdPegawai equals b.IdPegawai
+                             select new DataModels.pejabatpenilai { Id = a.Id, IdPegawai = a.IdPegawai, UserId = a.UserId, Pegawai = b };
 
                 return result.ToList();
             }

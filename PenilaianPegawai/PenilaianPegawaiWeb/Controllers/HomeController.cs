@@ -29,7 +29,7 @@ namespace PenilaianPegawaiWeb.Controllers
 
         public FileResult Download()
         {
-            string rootpath = Server.MapPath("~/Android/com.ocph23.AppPenilaian.apk");
+            string rootpath = Server.MapPath("~/Android/com.ocph23.AppPenilaian-Signed.apk");
             byte[] fileBytes = System.IO.File.ReadAllBytes(rootpath);
             string fileName = "AppPenilaian.apk";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);

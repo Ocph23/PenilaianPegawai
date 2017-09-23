@@ -13,15 +13,16 @@ namespace PenilaianPegawaiWeb.DataModels
      [TableName("pegawai")] 
      public class pegawai:BaseNotifyProperty  
    {
-          [PrimaryKey("NIP")] 
-          [DbColumn("NIP")] 
-          [Required(ErrorMessage ="{0} Tidak Boleh Kosong")]
-          public int NIP 
+          [PrimaryKey("IdPegawai")]
+        [Required(ErrorMessage = "{0} Tidak Boleh Kosong")]
+        [DbColumn("IdPegawai")] 
+         
+          public int IdPegawai
           { 
-               get{return _nip;} 
-               set{ 
-                      _nip=value; 
-                     OnPropertyChange("NIP");
+               get{return _IdPegawai; } 
+               set{
+                     _IdPegawai = value; 
+                     OnPropertyChange("IdPegawai");
                      }
           } 
 
@@ -33,9 +34,20 @@ namespace PenilaianPegawaiWeb.DataModels
                       _nama=value; 
                      OnPropertyChange("Nama");
                      }
-          } 
+          }
 
-          [DbColumn("TempatLahir")] 
+        [DbColumn("NIP")]
+        public string NIP
+        {
+            get { return _nip; }
+            set
+            {
+                _nip = value;
+                OnPropertyChange("NIP");
+            }
+        }
+
+        [DbColumn("TempatLahir")] 
           public string TempatLahir 
           { 
                get{return _tempatlahir;} 
@@ -141,7 +153,7 @@ namespace PenilaianPegawaiWeb.DataModels
         public detailpegawai Detail { get; set; }
         public penilaian HasilPenilaian { get; set; }
 
-        private int  _nip;
+        private string  _nip;
            private string  _nama;
            private string  _tempatlahir;
            private DateTime  _tanggallahir;
@@ -151,7 +163,8 @@ namespace PenilaianPegawaiWeb.DataModels
            private string  _jabatanakhir;
            private Asal  _asal;
            private JenisKelamin _jeniskelamin;
-        private byte[] _foto;
+            private byte[] _foto;
+            private int _IdPegawai;
     }
 }
 

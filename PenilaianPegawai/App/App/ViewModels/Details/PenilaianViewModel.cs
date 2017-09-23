@@ -44,7 +44,7 @@ namespace App.ViewModels.Details
         public PenilaianViewModel(pegawai item)
         {
             this.Pegawai= item;
-            this.GetPenilaian(item.NIP);
+            this.GetPenilaian(item.IdPegawai);
         }
 
         private async void GetPenilaian(int nIP)

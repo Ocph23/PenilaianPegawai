@@ -10,17 +10,19 @@ using DAL;
      [TableName("pejabatpenilai")] 
      public class pejabatpenilai:BaseNotifyProperty  
    {
-          [DbColumn("NIP")] 
-          public int NIP 
-          { 
-               get{return _nip;} 
-               set{ 
-                      _nip=value; 
-                     OnPropertyChange("NIP");
-                     }
-          } 
+        [DbColumn("IdPegawai")]
 
-          [DbColumn("UserId")] 
+        public int IdPegawai
+        {
+            get { return _IdPegawai; }
+            set
+            {
+                _IdPegawai = value;
+                OnPropertyChange("IdPegawai");
+            }
+        }
+
+        [DbColumn("UserId")] 
           public string UserId 
           { 
                get{return _userid;} 
@@ -46,7 +48,8 @@ using DAL;
         private int  _nip;
            private string  _userid;
            private int  _id;
-      }
+        private int _IdPegawai;
+    }
 }
 
 

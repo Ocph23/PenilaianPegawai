@@ -137,7 +137,7 @@
                 var url = "/api/Photo/Post";
                 var form = new FormData();
                 form.append("file", file);
-                form.append("NIP", model.NIP);
+                form.append("IdPegawai", model.IdPegawai);
                 var settings = {
                     "async": true,
                     "crossDomain": true,
@@ -235,13 +235,13 @@
                 if ($rootScope.SelectedPegawai != undefined)
                 {
                     $scope.IsBusy = true;
-                    model.Detail.NIP = model.NIP;
+                    model.Detail.IdPegawai = model.IdPegawai;
                     PegawaiService.put(model, $rootScope.SelectedPegawai).then(function (response) {
                     });
                 } else
                 {
                     $scope.IsBusy = true;
-                    model.Detail.NIP = model.NIP;
+                    model.Detail.IdPegawai = model.IdPegawai;
                     PegawaiService.post(model).then(function (response) {
                     });
                 }
@@ -284,39 +284,7 @@
             });
         });
       
-        $scope.SimpanKK = function (data,penduduk) {
-            try {
-                $scope.IsBusy = true;
-                data.Id = 0;
-                data.RTId = data.RT.Id;
-                data.DaftarKeluarga = [];
-                penduduk.Id = 0;
-                data.DaftarKeluarga.push(penduduk);
-                KartuKeluargaService.Insert(data).then(function (response) { })
-            } catch (e) {
-                alert(e.message);
-            } finally {
-                $scope.IsBusy = false;
-            }
-
-
-
-        }
-
       
-
-        $scope.SaveEditRT = function (item, selected) {
-            StrukturKelurahanService.putRT(item, selected).then(function (response) { });
-
-        };
-
-        $scope.DeleteRT = function (item, daftar) {
-            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "' RT " + item.Nama + "'?");
-            if (deleteUser) {
-                StrukturKelurahanService.deleteRT(item, daftar).then(function (response) { });
-            }
-
-        };
 
 
         $scope.GotoDetails = function (kk)
@@ -328,32 +296,7 @@
 
     .controller("LaporanController", function ($scope, $window, Helpers, $rootScope) {
 
-        $scope.Strukturs = [];
-        $scope.IsBusy = false;
-        $scope.Kepercayaan = Helpers.Kepercayaan();
-        $scope.JenisKelamin = Helpers.JenisKelamin();
-        $scope.Kewarganegaraan = Helpers.Kewarganegaraan();
-        $scope.Hubungan = Helpers.Hubungan();
-        $scope.Pendidikan = Helpers.Pendidikan();
-        $scope.StatusPerkawinan = Helpers.StatusPerkawinan();
-        $scope.KartuKeluarga = $rootScope.SelectedKK;
-
-        $scope.SimpanAnggota = function(model)
-        {
-            KartuKeluargaService.postanggota(model, $scope.KartuKeluarga ).then(function (response) { })
-        }
-        $scope.SelectPerson = function(item)
-        {
-            $scope.SelectedPerson = item;
-            $scope.Person = angular.copy(item);
-            $scope.Person.TanggalLahir = new Date(item.TanggalLahir);
-
-        }
-        $scope.SimpanEditAnggota = function (person)
-        {
-            KartuKeluargaService.putperson(person, $scope.SelectedPerson).then(function (response) { });
-        }
-
+       
     })
     .controller("LaporanPerPegawaiController", function ($scope, $http, $rootScope, KriteriaService) {
         $scope.Tahun = [];

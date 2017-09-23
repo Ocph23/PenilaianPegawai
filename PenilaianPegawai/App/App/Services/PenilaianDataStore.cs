@@ -32,7 +32,7 @@ namespace App.Services
                 try
                 {
                     await service.CekTokenAsync();
-                    var response = await service.GetAsync("api/penilaian/get?nip="+id);
+                    var response = await service.GetAsync("api/penilaian/get?id="+id);
                     if (response.IsSuccessStatusCode)
                     {
                         var content = await response.Content.ReadAsStringAsync();

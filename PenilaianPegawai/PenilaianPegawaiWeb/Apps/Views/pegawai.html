@@ -63,7 +63,7 @@
                                         {{$index+1}}
                                     </td>
                                     <td>
-                                        <img ng-click="Selected(item)" data-target="#modalFoto" data-toggle="modal" style="height:50px; width:25%" class="thumbnail" data-ng-src="data:image/png;base64,{{item.Foto}}" onerror="this.src='../../img/User_Circle.png'" alt="Red dot" />
+                                        <img ng-click="Selected(item)" data-target="#modalFoto" data-toggle="modal" style="height:50px; width:50px" class="thumbnail" data-ng-src="data:image/png;base64,{{item.Foto}}" onerror="this.src='../../img/User_Circle.png'" alt="Red dot" />
                                     </td>
                                     <td>
                                         {{item.NIP}}
@@ -290,53 +290,5 @@
         </div>
     </div>
 
-    <!--Ubah-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="modal fade" id="modal-container-UbahKK" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                    ×
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">
-                                    Ubah KK
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <form role="form">
-                                                <div class="form-group">
-                                                    <input type="text" placeholder="Nama" ng-model="model.Nama" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" placeholder="Ketererangan" ng-model="model.Keterangan"></textarea>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="Save(model)">
-                                    Save changes
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+  
 </section>

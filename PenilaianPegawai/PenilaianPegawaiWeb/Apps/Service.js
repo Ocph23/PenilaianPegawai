@@ -1,7 +1,7 @@
 ﻿angular.module("app.service", [])
     .factory("BaseUrl", function () {
         var service = {};
-        service.URL = "http://localhost:52814";
+        service.URL = "";
         return service;
     })
 
@@ -352,15 +352,25 @@
             return deferred.promise;
         }
 
-        service.put = function (model, selected) {
+        service.put = function (data, selected) {
             deferred = $q.defer();
             $http({
                 method: 'put',
                 url: BaseUrl.URL + "/api/pegawai/PutPegawai",
-                data: model
+                data: data
             }).then(function (response) {
+                var model = response.data;
+                selected.NIP = model.NIP;
                 selected.Nama = model.Nama;
-                selected.Keterangan = model.Keterangan;
+                selected.TempatLahir = model.TempatLahir;
+                selected.TanggalLahir = model.TanggalLahir;
+                selected.NomorKartuPegawai = model.NomorKartuPegawai;
+                selected.Pendidikan = model.Pendidikan;
+                selected.PangkatGolonganTerakhir = model.PangkatGolonganTerakhir
+                selected.JabatanAkhir = model.JabatanAkhir;
+                selected.Asal = model.Asal;
+                selected.JenisKelamin = model.JenisKelamin;
+                selected.Detail = model.Detail;
                 alert(Helpers.getMessage(2, ""));
                 deferred.resolve(response.data);
             }, function (error) {

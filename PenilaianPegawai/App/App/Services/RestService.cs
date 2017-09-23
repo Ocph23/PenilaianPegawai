@@ -19,7 +19,7 @@ namespace App.Services
 
             // this.MaxResponseContentBufferSize = 256000;
             //var a = ConfigurationManager.AppSettings["IP"];
-            this.BaseAddress = new Uri("http://192.168.1.22");
+            this.BaseAddress = new Uri("http://penilaianpegawai.gear.host/");
             //this.BaseAddress = new Uri("http://batikpapua.gear.host/");
             this.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
             //key api = 57557c4f25f436213fe34a2090a266e2

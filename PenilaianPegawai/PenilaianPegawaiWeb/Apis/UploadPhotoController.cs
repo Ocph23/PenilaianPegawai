@@ -44,15 +44,15 @@ namespace PenilaianPegawaiWeb.Apis
                             p.Foto = Helpers.ResizeImage(data, 150);
                         }
                     }
-                    else if (field == "NIP")
+                    else if (field == "IdPegawai")
                     {
-                        p.NIP = Convert.ToInt32(await ctnt.ReadAsStringAsync());
+                        p.IdPegawai = Convert.ToInt32(await ctnt.ReadAsStringAsync());
                     }
                 }
 
                 using (var db = new OcphDbContext())
                 {
-                    if (db.Pegawai.Update(O=>new { O.Foto},p,O=>O.NIP==p.NIP))
+                    if (db.Pegawai.Update(O=>new { O.Foto},p,O=>O.IdPegawai==p.IdPegawai))
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, p);
                     }else

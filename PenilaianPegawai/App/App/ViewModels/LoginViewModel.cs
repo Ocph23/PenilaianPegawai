@@ -16,10 +16,10 @@ namespace App.ViewModels
     {
         private string _email;
         private string _password;
-        private ICommand _loginCommand;
+        private Command _loginCommand;
         private AuthenticationToken token;
 
-        public ICommand LoginCommand { get { return _loginCommand; } set { SetProperty(ref _loginCommand, value); } }
+        public Command LoginCommand { get { return _loginCommand; } set { SetProperty(ref _loginCommand, value); } }
         public INavigation Navigation { get; }
 
         public LoginViewModel(INavigation navigation)

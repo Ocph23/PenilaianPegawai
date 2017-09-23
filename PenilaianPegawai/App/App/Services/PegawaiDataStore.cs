@@ -29,7 +29,7 @@ namespace App.Services
         {
             var nip = Convert.ToInt32(id);
             await InitializeAsync();
-            return await Task.FromResult(items.Where(O => O.NIP == nip).FirstOrDefault());
+            return await Task.FromResult(items.Where(O => O.IdPegawai == nip).FirstOrDefault());
         }
 
         public async Task<IEnumerable<pegawai>> GetItemsAsync(bool forceRefresh = false)

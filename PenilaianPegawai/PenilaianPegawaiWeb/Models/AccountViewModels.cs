@@ -83,7 +83,7 @@ namespace PenilaianPegawaiWeb.Models
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Nama Pegawai")]
-        public int NIP { get; set; }
+        public int IdPegawai { get; set; }
     }
 
 

@@ -119,7 +119,7 @@ namespace PenilaianPegawaiWeb.Apis
                                 {
                                     using (var db = new OcphDbContext())
                                     {
-                                        var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP = model.NIP, UserId = user.Id });
+                                        var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { IdPegawai = model.IdPegawai, UserId = user.Id });
                                         string c = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                                         string code = HttpUtility.UrlEncode(c);
                                         var callbackUrl = Url.Link("DefaultApi", new { controller = "Account/ConfirmEmail", userId = user.Id, code = code });
@@ -144,7 +144,7 @@ namespace PenilaianPegawaiWeb.Apis
                             {
                                 using (var db = new OcphDbContext())
                                 {
-                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { NIP = model.NIP, UserId = user.Id, Id = 0 });
+                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai { IdPegawai = model.IdPegawai, UserId = user.Id, Id = 0 });
                                     string c = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                                     string code = HttpUtility.UrlEncode(c);
                                     var callbackUrl = Url.Link("DefaultApi", new { controller = "Account/ConfirmEmail", userId = user.Id, code = code });
@@ -194,7 +194,7 @@ namespace PenilaianPegawaiWeb.Apis
                         var p = db.PejabatPenilai.Where(O => O.UserId == ui).FirstOrDefault();
                         if (p != null)
                         {
-                            result = db.Pegawai.Where(O => O.NIP == p.NIP).FirstOrDefault();
+                            result = db.Pegawai.Where(O => O.IdPegawai == p.IdPegawai).FirstOrDefault();
                           return  Request.CreateResponse(HttpStatusCode.OK, result);
                         }
                         else

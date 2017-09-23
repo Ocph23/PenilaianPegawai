@@ -36,11 +36,11 @@ namespace PenilaianPegawaiWeb.Apis
 
 
                     var result = from b in db.Penilaian.Where(O => O.TahunPeriode == periode.Value)
-                                join a in db.Pegawai.Select() on b.NIP equals a.NIP
+                                join a in db.Pegawai.Select() on b.IdPegawai equals a.IdPegawai
                                  join f in db.PejabatPenilai.Select() on b.PejabatPenilaiId equals f.Id
                                  join c in kriterias on b.IdPenilaian equals c.IdPenilaian into cgroup
                                  select new penilaian { Pegawai = a, DaftarPenilaian = cgroup.ToList(), RataRata=cgroup.Sum(O=>O.Nilai)/cgroup.Count(), TahunPeriode = b.TahunPeriode,
-                                     IdPenilaian = b.IdPenilaian, NIP = b.NIP, PejabatPenilaiId = b.PejabatPenilaiId };
+                                     IdPenilaian = b.IdPenilaian, IdPegawai = b.IdPegawai, PejabatPenilaiId = b.PejabatPenilaiId };
 
 
 
@@ -61,14 +61,13 @@ namespace PenilaianPegawaiWeb.Apis
         // GET: api/Penilaian/5
         [Authorize]
         [HttpGet]
-        public HttpResponseMessage Get(int nip)
+        public HttpResponseMessage Get(int id)
         {
             try
             {
                 using (var db = new OcphDbContext())
                 {
-                    string id = RequestContext.Principal.Identity.GetUserId();
-                    string userId = HttpContext.Current.User.Identity.GetUserId();
+                  
                     var pejabatui = User.Identity.GetUserId();
                     if (string.IsNullOrEmpty(pejabatui))
                     {
@@ -83,10 +82,10 @@ namespace PenilaianPegawaiWeb.Apis
                         }
                         else
                         {
-                            var penialaian = db.Penilaian.Where(O => O.NIP == nip).FirstOrDefault();
+                            var penialaian = db.Penilaian.Where(O => O.IdPegawai == id).FirstOrDefault();
                             if (penialaian == null)
                             {
-                                penialaian = new DataModels.penilaian { NIP = nip, PejabatPenilaiId = Nippejabat.Id, TahunPeriode = Helpers.GetPeriode(DateTime.Now).Value };
+                                penialaian = new DataModels.penilaian { IdPegawai = id, PejabatPenilaiId = Nippejabat.Id, TahunPeriode = Helpers.GetPeriode(DateTime.Now).Value };
                                 penialaian.IdPenilaian= db.Penilaian.InsertAndGetLastID(penialaian);
                                 penialaian.DaftarPenilaian = new List<DataModels.detailpenilaian>();
                                 foreach(var item in db.KriteriaPenilaian.Select())
