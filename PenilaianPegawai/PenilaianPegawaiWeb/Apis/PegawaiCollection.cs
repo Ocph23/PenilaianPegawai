@@ -50,11 +50,12 @@ namespace PenilaianPegawaiWeb.Apis
                 {
                     if (p != null)
                     {
-                        var isInsertPegawai = db.Pegawai.Insert(p);
+                        p.IdPegawai = db.Pegawai.InsertAndGetLastID(p);
                         if (p.Detail != null)
                         {
-                            var IsInsertDetail = db.PegawaiDetail.Insert(p.Detail);
-                            if (!isInsertPegawai || !IsInsertDetail)
+                            p.Detail.IdPegawai = p.IdPegawai;
+                            var saved = db.PegawaiDetail.Insert(p.Detail);
+                            if (p.IdPegawai<=0|| !saved)
                                 throw new SystemException("Data Tidak Dapat Disimpan");
                         }
                         trans.Commit();

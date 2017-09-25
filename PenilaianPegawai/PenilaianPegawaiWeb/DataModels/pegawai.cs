@@ -14,7 +14,6 @@ namespace PenilaianPegawaiWeb.DataModels
      public class pegawai:BaseNotifyProperty  
    {
           [PrimaryKey("IdPegawai")]
-        [Required(ErrorMessage = "{0} Tidak Boleh Kosong")]
         [DbColumn("IdPegawai")] 
          
           public int IdPegawai

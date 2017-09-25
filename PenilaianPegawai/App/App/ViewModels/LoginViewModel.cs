@@ -18,14 +18,25 @@ namespace App.ViewModels
         private string _password;
         private Command _loginCommand;
         private AuthenticationToken token;
+        private string _server;
+        private Command _serverCommand;
 
         public Command LoginCommand { get { return _loginCommand; } set { SetProperty(ref _loginCommand, value); } }
+
+        public Command ServerCommand { get { return _serverCommand; } set { SetProperty(ref _serverCommand, value); } }
         public INavigation Navigation { get; }
 
         public LoginViewModel(INavigation navigation)
         {
+           Server= Helpers.Mainpage.Server;
             Navigation = navigation;
             LoginCommand = new Command((x) => LoginAction(x), x => LoginValidate(x));
+            ServerCommand = new Command((x) => SetServer(x));
+        }
+
+        private async void SetServer(object x)
+        {
+            await Navigation.PushAsync(new Views.ServerView());
         }
 
         private bool LoginValidate(object arg)
@@ -105,5 +116,15 @@ namespace App.ViewModels
                 SetProperty(ref _password, value);
             }
         }
+
+        public string Server
+        {
+            get { return _server; }
+            set
+            {
+                SetProperty(ref _server, value);
+            }
+        }
+
     }
 }

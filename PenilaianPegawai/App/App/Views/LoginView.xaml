@@ -9,6 +9,7 @@
             <Entry Style="{StaticResource entryStyle}" Text="{Binding Email}" Placeholder="User Name" BackgroundColor="White"></Entry>
             <Entry Style="{StaticResource entryStyle}"  PropertyChanged="Entry_PropertyChanged" IsPassword="True" Placeholder="Password" BackgroundColor="White"></Entry>
             <Button Opacity="0.8" BackgroundColor="Ivory" Text="Login" Command="{Binding LoginCommand}"></Button>
+            <Button VerticalOptions="End" Opacity="0.8" BackgroundColor="Ivory" Text="{Binding Server}" Command="{Binding ServerCommand}"></Button>
         </StackLayout>
     </ContentView.Content>
 </ContentPage>
