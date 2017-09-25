@@ -44,6 +44,6 @@ namespace PenilaianPegawaiWeb
 
     public enum SKPejabat
     {
-         Presiden, Gubernur
+         Presiden, Gubernur, Menteri,Satker
     }
 }

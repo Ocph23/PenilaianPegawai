@@ -107,7 +107,7 @@
         }
 
         service.SKPejabat= function () {
-            return ['Presiden', 'Gubernur'];
+            return ['Presiden', 'Gubernur', 'Menteri', 'Satker'];
         }
 
         return service;

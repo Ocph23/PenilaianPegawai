@@ -9,7 +9,6 @@ namespace App.ViewModels
 {
     public class ServerViewModel : BaseViewModel
     {
-        private static string _server;
         private INavigation navigation;
 
         public ServerViewModel(INavigation navigation)
@@ -17,7 +16,7 @@ namespace App.ViewModels
             this.navigation = navigation;
         }
 
-        public static string Server
+        public  string Server
         {
             get
             {

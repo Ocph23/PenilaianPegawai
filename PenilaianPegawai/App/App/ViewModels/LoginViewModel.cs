@@ -36,7 +36,7 @@ namespace App.ViewModels
 
         private async void SetServer(object x)
         {
-            await Navigation.PushAsync(new Views.ServerView());
+            await Navigation.PushModalAsync(new Views.ServerView());
         }
 
         private bool LoginValidate(object arg)
