@@ -25,7 +25,7 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Clicked="OnMore" CommandParameter="{Binding NIP}"  Text="More" />
                             </ViewCell.ContextActions>
-                            <Grid Margin="5" BackgroundColor="DarkSlateBlue" Opacity="0.8">
+                            <Grid Margin="5" BackgroundColor="GhostWhite" Opacity="0.7">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30*"></ColumnDefinition>
                                     <ColumnDefinition Width="70*"></ColumnDefinition>

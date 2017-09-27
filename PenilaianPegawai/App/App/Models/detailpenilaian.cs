@@ -1,4 +1,7 @@
-﻿namespace App.Models
+﻿using App.Helpers;
+using Xamarin.Forms;
+
+namespace App.Models
 {
     public class detailpenilaian :ViewModels.BaseViewModel
     {
@@ -35,8 +38,19 @@
             set
             {
                 SetProperty(ref _nilai, value);
-             
-                
+                if (_nilai >= 10 && _nilai <= 100)
+                {
+                    DetailPenilaianDataStore.UpdateItemAsync(this);
+                }
+                else if (Nilai > 100)
+                {
+                    MessagingCenter.Send(new MessagingCenterAlert
+                    {
+                        Title = "Error",
+                        Message = "Maksimum Nilai 100",
+                        Cancel = "OK"
+                    }, "message");
+                }
             }
         }
 

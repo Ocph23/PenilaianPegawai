@@ -303,6 +303,7 @@
         $scope.Title = "";
         $scope.collection = [];
         $scope.Kriterias = [];
+        $scope.IsBusy = false;
         $scope.Periode = [{ "Value": 1, "Nama": "Januari-Maret" }, { "Value": 2, "Nama": "April-Juni" }, { "Value": 3, "Nama": "Juli-September" }, { "Value": 4, "Nama": "Oktober-Desember" }];
         $scope.Init = function () {
             var today = new Date();
@@ -319,7 +320,7 @@
 
         $scope.Cari = function(model)
         {
-          
+            $scope.IsBusy = true;
             $scope.Title = "";
             if (model.Tahun != undefined && model.Periode != undefined)
             {
@@ -332,6 +333,7 @@
                 }).then(function (response) {
                     // With the data succesfully returned, we can resolve promise and we can access it in controller
                     $scope.collection = response.data;
+                    $scope.IsBusy = false;
                 }, function (error) {
 
                     alert(error.data.Message);

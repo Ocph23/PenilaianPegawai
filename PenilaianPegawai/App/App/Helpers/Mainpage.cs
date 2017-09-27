@@ -26,7 +26,7 @@ namespace App.Helpers
             }
             set
             {
-                _server = "http://"+value+"/";
+                _server = value;
             }
         }
     }

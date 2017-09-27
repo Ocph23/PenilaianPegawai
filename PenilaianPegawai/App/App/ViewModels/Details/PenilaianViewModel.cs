@@ -54,7 +54,7 @@ namespace App.ViewModels.Details
 
         public void UpdateDB()
         {
-            DetailPenilaianDataStore.UpdateItemAsync(SelectedItem);
+         //   DetailPenilaianDataStore.UpdateItemAsync(SelectedItem);
         }
     }
 }

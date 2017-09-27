@@ -28,7 +28,6 @@ namespace App.ViewModels
 
         public LoginViewModel(INavigation navigation)
         {
-           Server= Helpers.Mainpage.Server;
             Navigation = navigation;
             LoginCommand = new Command((x) => LoginAction(x), x => LoginValidate(x));
             ServerCommand = new Command((x) => SetServer(x));
@@ -116,15 +115,6 @@ namespace App.ViewModels
                 SetProperty(ref _password, value);
             }
         }
-
-        public string Server
-        {
-            get { return _server; }
-            set
-            {
-                SetProperty(ref _server, value);
-            }
-        }
-
+       
     }
 }

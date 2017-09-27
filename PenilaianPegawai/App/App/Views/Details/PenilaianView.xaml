@@ -41,17 +41,17 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Style="{StaticResource labelStyle}"  Text="NIP" LineBreakMode="NoWrap" 
                      WidthRequest="100" FontSize="16"/>
-                    <Label Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.NIP}"></Label>
+                    <Label Style="{StaticResource labelStyle}" FontSize="18" Text="{Binding Pegawai.NIP}"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Style="{StaticResource labelStyle}"  Text="Nama" LineBreakMode="NoWrap" 
                      WidthRequest="100" FontSize="16"/>
-                    <Label Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.Nama}"></Label>
+                    <Label Style="{StaticResource labelStyle}" FontSize="18" Text="{Binding Pegawai.Nama}"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Style="{StaticResource labelStyle}"  Text="Jabatan" LineBreakMode="NoWrap" 
                      WidthRequest="100" FontSize="16"/>
-                    <Label Style="{StaticResource labelStyle}"  Text="{Binding Pegawai.JabatanAkhir}"></Label>
+                    <Label Style="{StaticResource labelStyle}" FontSize="18" Text="{Binding Pegawai.JabatanAkhir}"></Label>
                 </StackLayout>
             </StackLayout>
 

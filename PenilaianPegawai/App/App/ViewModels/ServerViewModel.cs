@@ -24,7 +24,7 @@ namespace App.ViewModels
             }
             set
             {
-                Helpers.Mainpage.Server = "http://" + value + "/";
+                Helpers.Mainpage.Server =value;
 
             }
         }

@@ -59,7 +59,7 @@ namespace PenilaianPegawaiWeb.Apis
         }
 
         // GET: api/Penilaian/5
-        [Authorize]
+      //  [Authorize]
         [HttpGet]
         public HttpResponseMessage Get(int id)
         {
@@ -68,7 +68,8 @@ namespace PenilaianPegawaiWeb.Apis
                 using (var db = new OcphDbContext())
                 {
                   
-                    var pejabatui = User.Identity.GetUserId();
+                  //  var pejabatui = User.Identity.GetUserId();
+                    var pejabatui = "0f62fa26-5aa7-4b00-a1da-217315324f5a";
                     if (string.IsNullOrEmpty(pejabatui))
                     {
                         throw new SystemException("Anda Tidak memiliki Akses");
