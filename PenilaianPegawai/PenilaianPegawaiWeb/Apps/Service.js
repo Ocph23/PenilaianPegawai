@@ -159,44 +159,17 @@
             return deferred.promise;
         }
 
-        service.put = function (model, selected) {
+
+        service.put = function (model) {
             deferred = $q.defer();
             $http({
                 method: 'put',
-                url: BaseUrl.URL + "/api/pejabatpenilai/put?id=" + model.Id,
+                url: BaseUrl.URL + "/api/pejabatpenilai/put",
                 data: model
             }).then(function (response) {
-                selected.Nama = model.Nama;
-                selected.Alamat = model.Alamat;
-                selected.Level = model.Level;
-                selected.Jabatan = model.Jabatan;
-                alert(Helpers.getMessage(2, ""));
+                alert("Berhasil Diubah");
                 deferred.resolve(response.data);
             }, function (error) {
-
-                alert(Helpers.getMessage(error.status, error.data));
-                // deferred.reject(error);
-            });
-
-            return deferred.promise;
-        }
-
-
-
-
-        service.delete = function (model) {
-            deferred = $q.defer();
-            $http({
-                method: 'delete',
-                url: BaseUrl.URL + "/api/pejabat/delete?id=" + model.Id,
-                data: model
-            }).then(function (response) {
-                var index = collection.indexOf(model);
-                collection.splice(index, 1);
-                alert(Helpers.getMessage(3, ""));
-                deferred.resolve(response.data);
-            }, function (error) {
-
                 alert(Helpers.getMessage(error.status, error.data));
                 // deferred.reject(error);
             });

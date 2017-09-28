@@ -20,23 +20,30 @@ namespace PenilaianPegawaiWeb.Apis
         {
             using (var db = new OcphDbContext())
             {
-                var result = from a in db.Pegawai.Select()
-                             join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
-                             from b in pegawaigrpup.DefaultIfEmpty()
-                             select new pegawai
-                             {
-                                 Asal = a.Asal, Foto=a.Foto,
-                                 JabatanAkhir = a.JabatanAkhir,
-                                 JenisKelamin = a.JenisKelamin,
-                                 Nama = a.Nama, NIP=a.NIP,
-                                 IdPegawai = a.IdPegawai,
-                                 NomorKartuPegawai = a.NomorKartuPegawai,
-                                 PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
-                                 Pendidikan = a.Pendidikan,
-                                 TanggalLahir = a.TanggalLahir,
-                                 TempatLahir = a.TempatLahir,
-                                 Detail = b
-                             };
+                var result = (from a in db.Pegawai.Where(O => O.Aktif == true)
+                              join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
+                              from b in pegawaigrpup.DefaultIfEmpty()
+                              select new pegawai
+                              {
+                                  Asal = a.Asal, Foto = a.Foto,
+                                  JabatanAkhir = a.JabatanAkhir,
+                                  JenisKelamin = a.JenisKelamin,
+                                  Nama = a.Nama, NIP = a.NIP,
+                                  IdPegawai = a.IdPegawai,
+                                  NomorKartuPegawai = a.NomorKartuPegawai,
+                                  PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
+                                  Pendidikan = a.Pendidikan,
+                                  TanggalLahir = a.TanggalLahir,
+                                  TempatLahir = a.TempatLahir, Aktif = a.Aktif,
+                                  Detail = b
+                              }).ToList();
+              var pejabats= db.PejabatPenilai.Where(O => O.Aktif == true);
+                foreach(var item in pejabats)
+                {
+                    var r=result.Where(O => O.IdPegawai == item.IdPegawai).FirstOrDefault();
+                    if (r != null)
+                        result.Remove(r);
+                }
                 return result.ToList();
             }
         }
@@ -120,7 +127,7 @@ namespace PenilaianPegawaiWeb.Apis
                     O.PangkatGolonganTerakhir,
                     O.Pendidikan,
                     O.TanggalLahir,
-                    O.TempatLahir
+                    O.TempatLahir,O.Aktif
                 }, p, O => O.IdPegawai == p.IdPegawai);
             }
         }
@@ -143,7 +150,7 @@ namespace PenilaianPegawaiWeb.Apis
                                  PangkatGolonganTerakhir = a.PangkatGolonganTerakhir,
                                  Pendidikan = a.Pendidikan,
                                  TanggalLahir = a.TanggalLahir,
-                                 TempatLahir = a.TempatLahir,
+                                 TempatLahir = a.TempatLahir, Aktif=a.Aktif,
                                  Detail = b
                              };
                 return result.FirstOrDefault();
@@ -161,7 +168,7 @@ namespace PenilaianPegawaiWeb.Apis
                 {
                     using (var db = new OcphDbContext())
                     {
-                        var result = from a in db.Pegawai.Select()
+                        var result = from a in db.Pegawai.Where(O=>O.Aktif==true)
                                      join b in db.PegawaiDetail.Select() on a.IdPegawai equals b.IdPegawai into pegawaigrpup
                                      from b in pegawaigrpup.DefaultIfEmpty()
                                      select new pegawai
@@ -212,7 +219,7 @@ namespace PenilaianPegawaiWeb.Apis
                                                 DaftarPenilaian = k.ToList(),
                                                 IdPenilaian = a.IdPenilaian,
                                                 IdPegawai = a.IdPegawai,
-                                                PejabatPenilai = a.PejabatPenilai,
+                                                PejabatPenilai = a.PejabatPenilai, 
                                                 PejabatPenilaiId = a.PejabatPenilaiId,
                                                 TahunPeriode = a.TahunPeriode,
                                             };
@@ -223,7 +230,7 @@ namespace PenilaianPegawaiWeb.Apis
                                 join b in realpenilaian on a.IdPegawai equals b.IdPegawai
                                 select new pegawai
                                 {
-                                    Asal = a.Asal,
+                                    Asal = a.Asal, Aktif=a.Aktif,
                                     JabatanAkhir = a.JabatanAkhir,
                                     JenisKelamin = a.JenisKelamin,
                                     Nama = a.Nama, NIP=a.NIP,
@@ -264,7 +271,7 @@ namespace PenilaianPegawaiWeb.Apis
                                      from b in pegawaigrpup.DefaultIfEmpty()
                                      select new pegawai
                                      {
-                                         Asal = a.Asal,
+                                         Asal = a.Asal, Aktif=a.Aktif,
                                          JabatanAkhir = a.JabatanAkhir,
                                          JenisKelamin = a.JenisKelamin,
                                          Nama = a.Nama, NIP=a.NIP,
@@ -321,7 +328,7 @@ namespace PenilaianPegawaiWeb.Apis
                                 join b in realpenilaian on a.IdPegawai equals b.IdPegawai
                                 select new pegawai
                                 {
-                                    Asal = a.Asal,
+                                    Asal = a.Asal, Aktif=a.Aktif, 
                                     JabatanAkhir = a.JabatanAkhir,
                                     JenisKelamin = a.JenisKelamin,
                                     Nama = a.Nama, NIP=a.NIP,

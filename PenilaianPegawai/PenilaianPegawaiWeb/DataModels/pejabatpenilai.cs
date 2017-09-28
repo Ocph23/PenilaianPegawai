@@ -42,13 +42,23 @@ using DAL;
                      OnPropertyChange("Id");
                      }
           }
-
+        [DbColumn("Aktif")]
+        public bool Aktif
+        {
+            get { return _aktif; }
+            set
+            {
+                _aktif = value;
+                OnPropertyChange("Aktif");
+            }
+        }
         public pegawai Pegawai { get;  set; }
 
         private int  _nip;
            private string  _userid;
            private int  _id;
         private int _IdPegawai;
+        private bool _aktif;
     }
 }
 

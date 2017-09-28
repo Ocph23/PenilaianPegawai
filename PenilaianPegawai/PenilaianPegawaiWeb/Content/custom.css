@@ -1,1 +1,13 @@
-/* your styles go here */
+.onlyprint{
+    display:none;
+}
+
+@media print {
+    .onlyprint {
+        display: block !important;
+    }
+
+    .dontprint {
+        display: none;
+    }
+}

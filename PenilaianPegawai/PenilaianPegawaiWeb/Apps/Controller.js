@@ -26,9 +26,15 @@
 
         $scope.DeleteItem = function (item)
         {
-            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "'" + item.Nama + "'?");
+            var message = " Menonaktifkan ";
+           
+            item.Aktif = !item.Aktif;
+            if (item.Aktif)
+                message=" Mengaktifkan "
+
+            var deleteUser = $window.confirm("Anda Yakin" + message + "'" + item.Pegawai.Nama + "' sebagai pejabat penilai ?");
             if (deleteUser) {
-                PejabatService.delete(item).then(function (response) {
+                PejabatPenilaiService.put(item).then(function (response) {
 
                 });
             }
@@ -317,9 +323,11 @@
                 $scope.Kriterias = response;
             });
         };
-
+        $scope.PrintData = {};
         $scope.Cari = function(model)
         {
+            $scope.collection = [];
+            $scope.PrintData = {};
             $scope.IsBusy = true;
             $scope.Title = "";
             if (model.Tahun != undefined && model.Periode != undefined)
@@ -331,8 +339,11 @@
                     url: "/api/penilaian/GetByPeriode",
                     data:model
                 }).then(function (response) {
-                    // With the data succesfully returned, we can resolve promise and we can access it in controller
                     $scope.collection = response.data;
+                    $scope.PrintData.Pejabat = response.data[0].PejabatPenilai;
+                    $scope.PrintData.Tanggal = new Date();
+                    $scope.PrintData.Kota = "Jayapura, ";
+                   
                     $scope.IsBusy = false;
                 }, function (error) {
 
@@ -344,6 +355,7 @@
      
         $scope.Print = function ()
         {
+           
             window.print();
         }
 

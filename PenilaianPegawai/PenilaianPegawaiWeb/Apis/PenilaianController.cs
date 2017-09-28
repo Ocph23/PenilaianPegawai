@@ -32,16 +32,31 @@ namespace PenilaianPegawaiWeb.Apis
                     var kriterias = from a in db.DetailPenilaian.Select()
                                     join b in db.KriteriaPenilaian.Select() on a.IdKriteria equals b.IdKriteria
                                     select new detailpenilaian { Id = a.Id, IdKriteria = a.IdKriteria, IdPenilaian = a.IdPenilaian, Nilai = a.Nilai, Kriteria = b };
-                                    
 
 
-                    var result = from b in db.Penilaian.Where(O => O.TahunPeriode == periode.Value)
-                                join a in db.Pegawai.Select() on b.IdPegawai equals a.IdPegawai
-                                 join f in db.PejabatPenilai.Select() on b.PejabatPenilaiId equals f.Id
-                                 join c in kriterias on b.IdPenilaian equals c.IdPenilaian into cgroup
-                                 select new penilaian { Pegawai = a, DaftarPenilaian = cgroup.ToList(), RataRata=cgroup.Sum(O=>O.Nilai)/cgroup.Count(), TahunPeriode = b.TahunPeriode,
-                                     IdPenilaian = b.IdPenilaian, IdPegawai = b.IdPegawai, PejabatPenilaiId = b.PejabatPenilaiId };
 
+                    var result = (from b in db.Penilaian.Where(O => O.TahunPeriode == periode.Value)
+                                  join a in db.Pegawai.Where(o => o.Aktif == true) on b.IdPegawai equals a.IdPegawai
+                                  join f in db.PejabatPenilai.Select() on b.PejabatPenilaiId equals f.Id
+                                  join c in kriterias on b.IdPenilaian equals c.IdPenilaian into cgroup
+                                  select new penilaian
+                                  {
+                                      Pegawai = a,
+                                      DaftarPenilaian = cgroup.ToList(),
+                                      RataRata =Math.Round( cgroup.Sum(O => O.Nilai) / cgroup.Count(),2),
+                                      TahunPeriode = b.TahunPeriode,
+                                      IdPenilaian = b.IdPenilaian,
+                                      IdPegawai = b.IdPegawai,
+                                      PejabatPenilaiId = b.PejabatPenilaiId,
+                                      PejabatPenilai = db.Pegawai.Where(O => O.IdPegawai ==f.IdPegawai).FirstOrDefault()
+                                  }).ToList();
+
+
+
+                    foreach(var item in db.PejabatPenilai.Where(O => O.Aktif == true))
+                    {
+                        result.RemoveAll(O => O.IdPegawai == item.IdPegawai);
+                    }
 
 
                                 return Request.CreateResponse(HttpStatusCode.OK, result.ToList().OrderByDescending(O=>O.RataRata));
@@ -68,8 +83,8 @@ namespace PenilaianPegawaiWeb.Apis
                 using (var db = new OcphDbContext())
                 {
                   
-                  //  var pejabatui = User.Identity.GetUserId();
-                    var pejabatui = "0f62fa26-5aa7-4b00-a1da-217315324f5a";
+                    var pejabatui = User.Identity.GetUserId();
+                    //var pejabatui = "0f62fa26-5aa7-4b00-a1da-217315324f5a";
                     if (string.IsNullOrEmpty(pejabatui))
                     {
                         throw new SystemException("Anda Tidak memiliki Akses");

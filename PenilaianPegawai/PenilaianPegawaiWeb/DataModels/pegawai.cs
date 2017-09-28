@@ -140,7 +140,16 @@ namespace PenilaianPegawaiWeb.DataModels
             }
         }
 
-
+        [DbColumn("Aktif")]
+        public bool Aktif
+        {
+            get { return _aktif; }
+            set
+            {
+                _aktif= value;
+                OnPropertyChange("Aktif");
+            }
+        }
         public string TTL
         {
             get
@@ -164,6 +173,7 @@ namespace PenilaianPegawaiWeb.DataModels
            private JenisKelamin _jeniskelamin;
             private byte[] _foto;
             private int _IdPegawai;
+        private bool _aktif;
     }
 }
 

@@ -35,6 +35,10 @@
                                         Jabatan
                                     </th>
                                     <th>
+                                        Aktif
+                                    </th>
+
+                                    <th>
                                         Action
                                     </th>
                                 </tr>
@@ -56,7 +60,11 @@
                                     <td>
                                         {{item.Pegawai.JabatanAkhir}}
                                     </td>
-                                  
+                                  <td>
+                                      <i ng-show="item.Aktif" style="color:#00ff90" class="fa fa-check fa-2x" aria-hidden="true"></i>
+                                      <i ng-show="!item.Aktif" style="color:#ff0000" class="fa fa-remove fa-2x" aria-hidden="true"></i>
+
+                                  </td>
 
                                     <td>
                                         <div class="dropdown">
@@ -65,8 +73,8 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a class="btn btn-default" ng-click="Delete(item)" role="button" data-toggle="modal">
-                                                        <i style="color:black" class="fa fa-remove fa-fw" aria-hidden="true"> Delete</i>
+                                                    <a class="btn btn-default" ng-click="DeleteItem(item)" role="button" data-toggle="modal">
+                                                        <i style="color:black" class="fa fa-remove fa-fw" aria-hidden="true">Non Aktifkan</i>
                                                     </a>
                                                 </li>
                                             </ul>

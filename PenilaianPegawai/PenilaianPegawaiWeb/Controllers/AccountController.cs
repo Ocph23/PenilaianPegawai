@@ -83,17 +83,18 @@ namespace PenilaianPegawaiWeb.Controllers
             {
                 return View(model);
             }
+         
             SignInStatus result = SignInStatus.Failure;
             string role = "Administrator";
             var isExis = await AppRoleManager.RoleExistsAsync(role);
-            model.Password = "Admin@123";
             if (!isExis)
             {
+               
                 var r = await AppRoleManager.CreateAsync(new IdentityRole { Name = role });
                 if (r.Succeeded)
                 {
                     var user = new ApplicationUser { UserName = "ocph23.test@gmail.com", Email = "ocph23.test@gmail.com",  };
-                    IdentityResult res = await UserManager.CreateAsync(user,model.Password);
+                    IdentityResult res = await UserManager.CreateAsync(user, "Admin@123");
                     if(res.Succeeded)
                     {
                         var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
@@ -103,20 +104,19 @@ namespace PenilaianPegawaiWeb.Controllers
                 {
                     throw new System.Exception(string.Format("Role {0} Gagal Dibuat, Hubungi Administrator", role));
                 }
-            }else
-            {
-                var user = new ApplicationUser { UserName = "ocph23.test@gmail.com", Email = "ocph23.test@gmail.com", };
-                IdentityResult res = await UserManager.CreateAsync(user, model.Password);
-                if (res.Succeeded)
-                {
-                    var roleResult = await UserManager.AddToRoleAsync(user.Id, role);
-                }
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user1 = await UserManager.FindByEmailAsync(model.Email);
+            if (!await UserManager.IsEmailConfirmedAsync(user1.Id))
+            {
+                ModelState.AddModelError("", "Email Not Confirm");
+                return View(model);
+            }
 
+            result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+           
             switch (result)
             {
                 case SignInStatus.Success:

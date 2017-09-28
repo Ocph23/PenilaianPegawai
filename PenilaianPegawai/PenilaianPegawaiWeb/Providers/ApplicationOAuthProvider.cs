@@ -37,6 +37,18 @@ namespace PenilaianPegawaiWeb.Providers
                 return;
             }
 
+            if(!user.EmailConfirmed)
+            {
+                context.SetError("EmailNotConfirmed", "Email Belum Diconfirmasi, Silahkan Cek Email anda");
+                return;
+            }
+
+            if (user.LockoutEnabled)
+            {
+                context.SetError("AccountLock", "Account di non aktifkan , hubungi administrator");
+                return;
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager);
             AuthenticationProperties properties = CreateProperties(user.UserName);

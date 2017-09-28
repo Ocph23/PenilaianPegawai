@@ -1,5 +1,11 @@
-﻿using App.Helpers;
+﻿using System;
+using System.Threading.Tasks;
+using App.Helpers;
 using Xamarin.Forms;
+using App.Services;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace App.Models
 {
@@ -32,27 +38,48 @@ namespace App.Models
             }
         }
 
+        private bool first=true;
+
         public double Nilai
         {
             get { return _nilai; }
             set
             {
-                SetProperty(ref _nilai, value);
-                if (_nilai >= 10 && _nilai <= 100)
+              
+               if(first)
                 {
-                    DetailPenilaianDataStore.UpdateItemAsync(this);
+                    first = false;
+                    SetProperty(ref _nilai, value);
                 }
-                else if (Nilai > 100)
+                else
                 {
-                    MessagingCenter.Send(new MessagingCenterAlert
+                    if(value!=_nilai && value >9 && value <=100)
                     {
-                        Title = "Error",
-                        Message = "Maksimum Nilai 100",
-                        Cancel = "OK"
-                    }, "message");
+                        SetProperty(ref _nilai, value);
+                        DetailPenilaianDataStore.UpdateItemAsync(this);
+                    }
+                    else if(value>100)
+                    {
+                        MessagingCenter.Send(new MessagingCenterAlert
+                        {
+                            Title = "Error",
+                            Message = "Maksimum penilaian 100",
+                            Cancel = "OK"
+                        }, "message");
+                    }
+                    else if(value!=_nilai)
+                    {
+
+                        SetProperty(ref _nilai, value);
+                    }
+                    
                 }
+
+
             }
         }
+
+    
 
         public kriteriapenilaian Kriteria
         {
