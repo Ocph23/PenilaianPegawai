@@ -234,7 +234,7 @@ namespace PenilaianPegawaiWeb.Controllers
                             {
                                 using (var db = new OcphDbContext())
                                 {
-                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai {  IdPegawai = model.IdPegawai, UserId = user.Id });
+                                    var re = db.PejabatPenilai.Insert(new DataModels.pejabatpenilai {  IdPegawai = model.IdPegawai, UserId = user.Id, Aktif=true });
                                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
@@ -258,7 +258,7 @@ namespace PenilaianPegawaiWeb.Controllers
                         {
                             using (var db = new OcphDbContext())
                             {
-                              var re=  db.PejabatPenilai.Insert(new DataModels.pejabatpenilai {  IdPegawai=model.IdPegawai, UserId=user.Id ,Id=0});
+                              var re=  db.PejabatPenilai.Insert(new DataModels.pejabatpenilai {  IdPegawai=model.IdPegawai, UserId=user.Id, Aktif=true});
                                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                                 await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
@@ -292,6 +292,10 @@ namespace PenilaianPegawaiWeb.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+            if(result.Succeeded)
+            {
+                await UserManager.SetLockoutEnabledAsync(userId, false);
+            }
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 

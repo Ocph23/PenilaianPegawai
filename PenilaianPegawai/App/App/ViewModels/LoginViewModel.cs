@@ -58,8 +58,6 @@ namespace App.ViewModels
             {
                 using (var res = new Services.RestService())
                 {
-                    this.Email = "Ajn26@gmail.com";
-                    this.Password = "Penilai@123";
                     token = await res.GenerateTokenAsync(this.Email, Password);
                     if (token != null)
                     {
