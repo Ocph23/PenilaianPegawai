@@ -145,12 +145,22 @@ namespace PenilaianPegawaiWeb.Apis
             {
                 try
                 {
-                    if (db.Pegawai.Delete(O=>O.IdPegawai==id))
+                    var pegawai = db.Pegawai.Where(O => O.IdPegawai == id).FirstOrDefault();
+                    if(pegawai!=null)
                     {
-                        return Request.CreateResponse(HttpStatusCode.OK, true);
+                        pegawai.Aktif = !pegawai.Aktif;
+                        if (db.Pegawai.Update(O => new {O.Aktif }, pegawai,O=>O.IdPegawai==pegawai.IdPegawai))
+                        {
+                            return Request.CreateResponse(HttpStatusCode.OK, true);
+                        }
+                        else
+                            throw new SystemException("Data  Gagal Ditambah");
                     }
                     else
-                        throw new SystemException("Data  Gagal Ditambah");
+                    {
+                        throw new SystemException("Data  Tidak Ditemukan");
+                    }
+                    
                 }
                 catch (Exception ex)
                 {

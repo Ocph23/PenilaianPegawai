@@ -50,7 +50,11 @@
 
         service.getMessage = function (code,data)
         {
-           var message = data.Message;
+            var message = "";
+            if (data.Message != undefined)
+                message = data.Message;
+            else
+                message = data;
            angular.forEach(messages, function (value, key) {
                if (value.code == code) {
                    message = value.message;
@@ -362,13 +366,11 @@
             deferred = $q.defer();
             $http({
                 method: 'delete',
-                url: BaseUrl.URL + "/api/pegawai/delete?id=" + model.IdKriteria,
+                url: BaseUrl.URL + "/api/pegawai/delete?id=" + model.IdPegawai,
                 data: model
             }).then(function (response) {
-                var index = collection.indexOf(model);
-                collection.splice(index, 1);
-                alert(Helpers.getMessage(3, ""));
-                deferred.resolve(index);
+               
+                deferred.resolve(response);
             }, function (error) {
 
                 alert(Helpers.getMessage(error.status, error.data.Message));

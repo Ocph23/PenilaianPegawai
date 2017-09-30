@@ -203,10 +203,12 @@
         }
 
         $scope.Delete = function (item) {
-            var deleteUser = $window.confirm("Anda Yakin Menghapus " + "' Kriteria " + item.Nama + "'?");
+            var deleteUser = $window.confirm("Anda Yakin Menonaktifkan "  + item.Nama + "'?");
             if (deleteUser) {
                 PegawaiService.delete(item).then(function (index) {
-                    $scope.Kriterias.splice(index, 1);
+                    var index = $scope.Pegawais.indexOf(item);
+                    $scope.Pegawais.splice(index, 1);
+                    alert("Data Berhasil diubah");
                 });
             }
 

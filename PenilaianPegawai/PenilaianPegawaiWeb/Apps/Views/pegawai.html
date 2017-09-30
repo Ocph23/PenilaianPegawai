@@ -58,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="item in Pegawais | filter:Pagenation.Search | startFrom:Pagenation.currentPage*Pagenation.pageSize | limitTo:Pagenation.pageSize" ">
+                                <tr ng-repeat="item in Pegawais | filter:Pagenation.Search | startFrom:Pagenation.currentPage*Pagenation.pageSize | limitTo:Pagenation.pageSize">
                                     <td>
                                         {{$index+1}}
                                     </td>
@@ -112,7 +112,7 @@
                                                 </li>
                                                 <li>
                                                     <a class="btn btn-default" ng-click="Delete(item)" role="button" data-toggle="modal">
-                                                        <i style="color:black" class="fa fa-remove fa-fw" aria-hidden="true"> Delete</i>
+                                                        <i style="color:black" class="fa fa-remove fa-fw" aria-hidden="true">NonAktifkan</i>
                                                     </a>
                                                 </li>
                                             </ul>
