@@ -144,8 +144,7 @@ namespace PenilaianPegawaiWeb.DataModels
         public bool Aktif
         {
             get { return _aktif; }
-            set
-            {
+            set{
                 _aktif= value;
                 OnPropertyChange("Aktif");
             }

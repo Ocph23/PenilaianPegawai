@@ -211,7 +211,6 @@
                     alert("Data Berhasil diubah");
                 });
             }
-
         };
 
     })
