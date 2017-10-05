@@ -33,10 +33,8 @@ namespace PenilaianPegawaiWeb.Apis
                                     join b in db.KriteriaPenilaian.Select() on a.IdKriteria equals b.IdKriteria
                                     select new detailpenilaian { Id = a.Id, IdKriteria = a.IdKriteria, IdPenilaian = a.IdPenilaian, Nilai = a.Nilai, Kriteria = b };
 
-
-
-                    var result = (from b in db.Penilaian.Where(O => O.TahunPeriode == periode.Value)
-                                  join a in db.Pegawai.Where(o => o.Aktif == true) on b.IdPegawai equals a.IdPegawai
+                    var result = (from a in db.Pegawai.Where(o => o.Aktif == true) 
+                                 join b in db.Penilaian.Where(O => O.TahunPeriode == periode.Value) on a.IdPegawai equals b.IdPegawai
                                   join f in db.PejabatPenilai.Select() on b.PejabatPenilaiId equals f.Id
                                   join c in kriterias on b.IdPenilaian equals c.IdPenilaian into cgroup
                                   select new penilaian
@@ -52,14 +50,51 @@ namespace PenilaianPegawaiWeb.Apis
                                   }).ToList();
 
 
-
-                    foreach(var item in db.PejabatPenilai.Where(O => O.Aktif == true))
+                    List<penilaian> realresult = new List<penilaian>();
+                    foreach(var p in db.Pegawai.Where(O=>O.Aktif==true))
                     {
-                        result.RemoveAll(O => O.IdPegawai == item.IdPegawai);
+                        var datas = result.Where(O => O.IdPegawai == p.IdPegawai).GroupBy(O => O.IdPegawai);
+                        foreach(var d in datas)
+                        {
+                            var penil = d.FirstOrDefault();
+                            penilaian newpenil = new penilaian
+                            {
+                                IdPegawai = penil.IdPegawai,
+                                DaftarPenilaian = penil.DaftarPenilaian,
+                                IdPenilaian = penil.IdPenilaian,
+                                Pegawai = penil.Pegawai,
+                                PejabatPenilai = penil.PejabatPenilai,
+                                PejabatPenilaiId = penil.PejabatPenilaiId,
+                                TahunPeriode = penil.TahunPeriode
+                            };
+                            foreach(var item in newpenil.DaftarPenilaian)
+                            {
+                                double r = 0;
+                                foreach(var pen in d )
+                                {
+                                    r += pen.DaftarPenilaian.Where(O => O.IdKriteria == item.IdKriteria).FirstOrDefault().Nilai;
+                                }
+
+                                item.Nilai = r / d.Count();
+
+                               
+                                   
+                            }
+                            newpenil.RataRata = Math.Round(newpenil.DaftarPenilaian.Sum(O => O.Nilai) / newpenil.DaftarPenilaian.Count(), 2);
+                            realresult.Add(newpenil);
+
+                        }
                     }
 
 
-                                return Request.CreateResponse(HttpStatusCode.OK, result.ToList().OrderByDescending(O=>O.RataRata));
+
+                    foreach(var item in db.PejabatPenilai.Where(O => O.Aktif == true))
+                    {
+                        realresult.RemoveAll(O => O.IdPegawai == item.IdPegawai);
+                    }
+
+
+                                return Request.CreateResponse(HttpStatusCode.OK, realresult.ToList().OrderByDescending(O=>O.RataRata));
 
 
                    
@@ -98,7 +133,9 @@ namespace PenilaianPegawaiWeb.Apis
                         }
                         else
                         {
-                            var penialaian = db.Penilaian.Where(O => O.IdPegawai == id).FirstOrDefault();
+                            int period = Helpers.GetPeriode(DateTime.Now).Value;
+                            var pid = Nippejabat.Id;
+                            var penialaian = db.Penilaian.Where(O => O.IdPegawai == id).Where(O => O.TahunPeriode == period).Where(O=>O.PejabatPenilaiId==pid).FirstOrDefault();
                             if (penialaian == null)
                             {
                                 penialaian = new DataModels.penilaian { IdPegawai = id, PejabatPenilaiId = Nippejabat.Id, TahunPeriode = Helpers.GetPeriode(DateTime.Now).Value };

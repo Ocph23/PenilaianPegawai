@@ -340,10 +340,14 @@
                     url: "/api/penilaian/GetByPeriode",
                     data:model
                 }).then(function (response) {
-                    $scope.collection = response.data;
-                    $scope.PrintData.Pejabat = response.data[0].PejabatPenilai;
-                    $scope.PrintData.Tanggal = new Date();
-                    $scope.PrintData.Kota = "Jayapura, ";
+                    if (response.data.lenght <= 0)
+                        alert("Data penilaian belum ada");
+                    else {
+                        $scope.collection = response.data;
+                        $scope.PrintData.Pejabat = response.data[0].PejabatPenilai;
+                        $scope.PrintData.Tanggal = new Date();
+                        $scope.PrintData.Kota = "Jayapura, ";
+                    }
                    
                     $scope.IsBusy = false;
                 }, function (error) {

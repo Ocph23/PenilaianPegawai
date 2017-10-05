@@ -63,6 +63,7 @@ namespace PenilaianPegawaiWeb.Apis
         {
             if(ModelState.IsValid)
             {
+                p.Aktif = true;
                 var periode = Helpers.GetPeriode(DateTime.Now);
                 PegawaiCollection coll = new PegawaiCollection(periode.Value);
                 try
