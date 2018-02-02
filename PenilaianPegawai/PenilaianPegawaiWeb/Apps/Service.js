@@ -90,6 +90,11 @@
             return ['Islam', 'Protestan', 'Khatolik', 'Hindu', 'Budha', 'Konghuchu'];
         }
 
+        service.Golongan = function () {
+            return ['II/A', 'II/B', 'II/C', 'II/D', 'III/A', 'III/B', 'III/C', 'III/D','IV/A', 'IV/B', 'IV/C', 'IV/D'];
+        }
+
+
         service.JenisKelamin= function () {
             return ['L', 'P'];
         }

@@ -22,19 +22,14 @@ namespace App
 
         public static void SetMainPage()
         {
-
             var login = new Views.LoginView();
-
             Current.MainPage = login;
-
-         
         }
 
 
         public void ChangeScreen(Page page)
         {
             Current.MainPage = page;
-
         }
     }
 }

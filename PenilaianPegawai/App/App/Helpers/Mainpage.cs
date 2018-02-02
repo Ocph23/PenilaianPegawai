@@ -10,7 +10,7 @@ namespace App.Helpers
 {
     public static class Mainpage
     {
-        private static string _server= "http://penilaianpegawai.gear.host/";
+        private static string _server= "http://192.168.1.15:12006/";
 
         public static async Task<BaseMain> GetMainPageAsync()
         {

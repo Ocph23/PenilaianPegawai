@@ -11,6 +11,24 @@ namespace App.Models
 {
     public class detailpenilaian :ViewModels.BaseViewModel
     {
+        private Command _tapCommand;
+
+        public Command TapCommand { get { return _tapCommand; } set { SetProperty(ref _tapCommand, value); } }
+        public detailpenilaian()
+        {
+            TapCommand = new Command((x) => TapCommandAction(x));
+        }
+        private void TapCommandAction(object x)
+        {
+
+            MessagingCenter.Send(new MessagingCenterAlert
+            {
+                Title = this.Kriteria.Nama,
+                Message = x.ToString(),
+                Cancel = "OK"
+            }, "message");
+        }
+
 
         public int Id
         {

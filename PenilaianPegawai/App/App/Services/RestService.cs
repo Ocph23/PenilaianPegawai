@@ -19,7 +19,7 @@ namespace App.Services
 
             // this.MaxResponseContentBufferSize = 256000;
             //var a = ConfigurationManager.AppSettings["IP"];
-            this.BaseAddress = new Uri(Helpers.Mainpage.Server);
+            BaseAddress = new Uri(Mainpage.Server);
             //this.BaseAddress = new Uri("http://batikpapua.gear.host/");
             this.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
             //key api = 57557c4f25f436213fe34a2090a266e2

@@ -65,6 +65,9 @@
     <Compile Include="ViewModels\Main\PegawaiViewModel.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="Views\BaseMain.cs" />
+    <Compile Include="Views\Details\KriteriaView.xaml.cs">
+      <DependentUpon>KriteriaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\PegawaiDetailView.xaml.cs">
       <DependentUpon>PegawaiDetailView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ServerView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Details\KriteriaView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

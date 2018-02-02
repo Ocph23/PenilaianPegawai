@@ -68,8 +68,8 @@
                     <ListView.Header>
                         <Grid Margin="0,0,0,10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"></ColumnDefinition>
-                                <ColumnDefinition Width="50*"></ColumnDefinition>
+                                <ColumnDefinition Width="30*"></ColumnDefinition>
+                                <ColumnDefinition Width="70*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Style="{StaticResource labelStyle}" FontSize="20" Grid.Column="0" Text="Kriteria"></Label>
                             <Label Style="{StaticResource labelStyle}" FontSize="20"  Grid.Column="1" Text="Nilai" HorizontalOptions="Center"></Label>
@@ -80,12 +80,20 @@
                             <ViewCell >
                                 <Grid Margin="0,10">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70*"></ColumnDefinition>
                                         <ColumnDefinition Width="30*"></ColumnDefinition>
+                                        <ColumnDefinition Width="55*"></ColumnDefinition>
+                                        <ColumnDefinition Width="15*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Label Style="{StaticResource labelStyle}"  Grid.Column="0" Text="{Binding Kriteria.Nama}" LineBreakMode="NoWrap" 
-                                                                FontSize="16"/>
-                                    <Entry Opacity="0.9" Style="{StaticResource entryStyle}"  Grid.Column="1" x:Name="{Binding Id}" FontSize="14" Text="{Binding Nilai}" Unfocused="Entry_Unfocused"/>
+                                                                FontSize="16">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding TapCommand}"
+                                                CommandParameter="{Binding Kriteria.Keterangan}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Slider Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Nilai}"></Slider>
+                                    <Label Style="{StaticResource labelStyle}" FontSize="16"  Grid.Column="2" Text="{Binding Nilai}" HorizontalOptions="Center"></Label>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

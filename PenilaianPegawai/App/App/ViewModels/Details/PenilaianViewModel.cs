@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Models;
+using Xamarin.Forms;
+using App.Helpers;
 
 namespace App.ViewModels.Details
 {
@@ -12,6 +14,12 @@ namespace App.ViewModels.Details
         private pegawai _pegawai;
         private penilaian _penilaian;
         private detailpenilaian _selected;
+        private Command _tapCommand;
+        public PenilaianViewModel(pegawai item)
+        {
+            this.Pegawai = item;
+            this.GetPenilaian(item.IdPegawai);
+        }
 
         public detailpenilaian SelectedItem {
             get
@@ -41,11 +49,7 @@ namespace App.ViewModels.Details
             }
         }
 
-        public PenilaianViewModel(pegawai item)
-        {
-            this.Pegawai= item;
-            this.GetPenilaian(item.IdPegawai);
-        }
+       
 
         private async void GetPenilaian(int nIP)
         {

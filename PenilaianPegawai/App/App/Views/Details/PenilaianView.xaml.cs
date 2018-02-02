@@ -16,6 +16,8 @@ namespace App.Views.Details
         public PenilaianView()
         {
             InitializeComponent();
+            
+            
         }
 
         public PenilaianView(pegawai item)
